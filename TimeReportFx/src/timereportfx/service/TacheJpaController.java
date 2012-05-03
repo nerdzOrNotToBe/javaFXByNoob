@@ -2,24 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.service;
 
+import timereportfx.models.entities.Tache;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import timereportfx.models.Utilisateur;
-import timereportfx.models.Projet;
-import timereportfx.models.Categorie;
-import timereportfx.models.Timereport;
+import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.Projet;
+import timereportfx.models.entities.Categorie;
+import timereportfx.models.entities.Timereport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 //import javax.transaction.UserTransaction;
-import timereportfx.controller.exceptions.NonexistentEntityException;
-import timereportfx.controller.exceptions.PreexistingEntityException;
-import timereportfx.models.*;
+import timereportfx.service.exceptions.NonexistentEntityException;
+import timereportfx.service.exceptions.PreexistingEntityException;
 
 /**
  *

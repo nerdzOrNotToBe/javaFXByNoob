@@ -1,4 +1,4 @@
-package timereportfx.colorpicker.skin;
+package timereportfx.module.colorpicker.skin;
 
 import com.sun.javafx.event.EventDispatchChainImpl;
 import javafx.beans.InvalidationListener;
@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
-import timereportfx.colorpicker.control.InputField;
+import timereportfx.module.colorpicker.control.InputField;
 
 /**
  */

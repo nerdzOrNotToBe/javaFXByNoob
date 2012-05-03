@@ -4,6 +4,7 @@
  */
 package timereportfx.controller;
 
+import timereportfx.service.UtilisateurJpaController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import timereportfx.TimeReportFx;
-import timereportfx.models.Utilisateur;
+import timereportfx.models.entities.Utilisateur;
 
 /**
  *

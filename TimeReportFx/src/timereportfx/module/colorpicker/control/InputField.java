@@ -1,4 +1,4 @@
-package timereportfx.colorpicker.control;
+package timereportfx.module.colorpicker.control;
 
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;

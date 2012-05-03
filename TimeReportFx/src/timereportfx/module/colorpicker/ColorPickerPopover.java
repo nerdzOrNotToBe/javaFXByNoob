@@ -1,7 +1,7 @@
-package timereportfx.colorpicker;
+package timereportfx.module.colorpicker;
 
-import timereportfx.colorpicker.control.IntegerField;
-import timereportfx.colorpicker.control.WebColorField;
+import timereportfx.module.colorpicker.control.IntegerField;
+import timereportfx.module.colorpicker.control.WebColorField;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;

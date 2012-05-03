@@ -4,6 +4,9 @@
  */
 package timereportfx.controller;
 
+import timereportfx.service.TacheJpaController;
+import timereportfx.service.TimereportJpaController;
+import timereportfx.service.ProjetJpaController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,11 +34,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import timereportfx.TimeReportFx;
-import timereportfx.controller.exceptions.PreexistingEntityException;
-import timereportfx.models.Projet;
-import timereportfx.models.Tache;
-import timereportfx.models.Timereport;
-import timereportfx.models.Utilisateur;
+import timereportfx.service.exceptions.PreexistingEntityException;
+import timereportfx.models.entities.Projet;
+import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.Timereport;
+import timereportfx.models.entities.Utilisateur;
 
 /**
  *

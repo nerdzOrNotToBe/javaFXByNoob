@@ -1,4 +1,4 @@
-package timereportfx.controller.exceptions;
+package timereportfx.service.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

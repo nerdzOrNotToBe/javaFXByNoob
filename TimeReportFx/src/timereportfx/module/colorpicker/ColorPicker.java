@@ -1,4 +1,4 @@
-package timereportfx.colorpicker;
+package timereportfx.module.colorpicker;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;

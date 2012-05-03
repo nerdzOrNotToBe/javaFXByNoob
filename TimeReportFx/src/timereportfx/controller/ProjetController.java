@@ -15,8 +15,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import timereportfx.models.Projet;
-import timereportfx.models.Tache;
+import timereportfx.models.entities.Projet;
+import timereportfx.models.entities.Tache;
 
 /**
  *

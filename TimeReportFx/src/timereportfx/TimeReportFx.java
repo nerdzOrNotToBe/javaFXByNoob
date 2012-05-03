@@ -24,7 +24,7 @@ import javax.persistence.Persistence;
 import timereportfx.controller.InfoBulleController;
 import timereportfx.controller.LoggingController;
 import timereportfx.controller.Main;
-import timereportfx.models.Utilisateur;
+import timereportfx.models.entities.Utilisateur;
 
 /**
  *

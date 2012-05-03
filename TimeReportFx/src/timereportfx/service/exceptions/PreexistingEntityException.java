@@ -1,4 +1,4 @@
-package timereportfx.controller.exceptions;
+package timereportfx.service.exceptions;
 
 public class PreexistingEntityException extends Exception {
     public PreexistingEntityException(String message, Throwable cause) {

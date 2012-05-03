@@ -1,11 +1,11 @@
-package timereportfx.colorpicker.skin;
+package timereportfx.module.colorpicker.skin;
 
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import timereportfx.colorpicker.control.WebColorField;
+import timereportfx.module.colorpicker.control.WebColorField;
 
 /**
  */

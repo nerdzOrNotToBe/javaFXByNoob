@@ -1,4 +1,4 @@
-package timereportfx.colorpicker.skin;
+package timereportfx.module.colorpicker.skin;
 
 
 
@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Node;
-import timereportfx.colorpicker.control.IntegerField;
+import timereportfx.module.colorpicker.control.IntegerField;
 
 /**
  */

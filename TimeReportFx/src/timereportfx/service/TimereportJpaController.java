@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,11 +12,11 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import timereportfx.TimeReportFx;
 //import javax.transaction.UserTransaction;
-import timereportfx.controller.exceptions.NonexistentEntityException;
-import timereportfx.controller.exceptions.PreexistingEntityException;
-import timereportfx.models.Utilisateur;
-import timereportfx.models.Tache;
-import timereportfx.models.Timereport;
+import timereportfx.service.exceptions.NonexistentEntityException;
+import timereportfx.service.exceptions.PreexistingEntityException;
+import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.Timereport;
 
 /**
  *
@@ -31,7 +31,7 @@ public class TimereportJpaController implements Serializable {
    // private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
-    TimereportJpaController() {
+    public TimereportJpaController() {
         emf = TimeReportFx.getEMF();
     }
 

@@ -4,6 +4,7 @@
  */
 package timereportfx.controller;
 
+import timereportfx.service.ProjetJpaController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableObjectValue;
@@ -21,8 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import timereportfx.colorpicker.ColorPicker;
-import timereportfx.models.Projet;
+import timereportfx.module.colorpicker.ColorPicker;
+import timereportfx.models.entities.Projet;
 
 /**
  *
