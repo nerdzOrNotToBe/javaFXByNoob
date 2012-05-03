@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<TitledPane id="titledPane1" animated="false" opacity="0.67" prefHeight="480.0" prefWidth="304.0" text="untitled" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.ProjetController">
+  <content>
+    <VBox id="vBox1" fx:id="vbox" opacity="0.44" prefHeight="200.0" prefWidth="100.0" />
+  </content>
+  <stylesheets>
+    <URL value="@StyleProjet.css" />
+  </stylesheets>
+</TitledPane>

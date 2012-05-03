@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="355.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.Main">
+  <children>
+    <MenuBar id="menuBar1" fx:id="menuBar" prefHeight="24.0" prefWidth="355.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <menus>
+        <Menu id="fileMenu1" text="File">
+          <items>
+            <MenuItem id="menuItem1" text="Connexion" fx:id="menu_connexion" />
+            <MenuItem id="close1" text="Close" fx:id="menu_close" />
+          </items>
+        </Menu>
+        <Menu id="editMenu1" text="Edit">
+          <items>
+            <MenuItem id="delete1" text="Configuration" fx:id="menuConfig" />
+          </items>
+        </Menu>
+        <Menu disable="true" id="helpMenu1" text="Help">
+          <items>
+            <MenuItem id="about1" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Accordion id="accordion1" fx:id="accordion" layoutY="24.0" prefHeight="506.0" prefWidth="355.0" />
+  </children>
+</AnchorPane>

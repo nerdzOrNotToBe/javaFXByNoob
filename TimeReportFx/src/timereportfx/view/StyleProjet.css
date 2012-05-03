@@ -1,0 +1,27 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 13.0px;
+    -fx-background: #F9F6F6;
+    -fx-focus-color: #0093FF;
+    -fx-control-inner-background: #FDFCFC;
+    -fx-inner-border: linear-gradient(to bottom, derive(-fx-color,59.39857845817386%) 0%, derive(-fx-color,25.86637506834336%) 100%);
+    -fx-body-color: linear-gradient( to bottom, derive(-fx-color, 33.0508474576271%) 0%, derive(-fx-color, -19.694915254237287%) 100%);
+}
+.toggle-button{
+    -fx-background-radius: 7, 7, 6, 5;
+    -fx-padding: 8px 15px 8px 15px;
+}
+
+ .toggle-button{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+.toggle-button:focused {
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+.toggle-button:enabled{
+    
+}
+
+#test{
+    -fx-background-image: url("balinfo.png") ;
+}

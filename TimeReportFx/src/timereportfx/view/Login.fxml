@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="113.0" maxWidth="243.0" minHeight="113.0" minWidth="243.0" prefHeight="113.0" prefWidth="243.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.LoggingController">
+  <children>
+    <TextField id="textField1" fx:id="txt_userName" prefWidth="200.0" promptText="Nom de l'utilisateur" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="35.0" />
+    <Label id="label1" text="Utilisateur" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+    <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="78.0">
+      <children>
+        <Button fx:id="btn_ok" defaultButton="true" onAction="#okClick" prefWidth="80.0" text="Ok" />
+        <Button id="button1" fx:id="btn_cancel" prefHeight="20.9998779296875" prefWidth="79.9998779296875" text="Annuler" />
+      </children>
+    </HBox>
+    <Label id="label2" fx:id="lbl_error" layoutX="54.0" layoutY="58.0" opacity="0.0" prefHeight="16.0" prefWidth="117.0" text="Mauvais loggin" textFill="RED" />
+  </children>
+</AnchorPane>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:id="projetPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.ProjetPaneController">
+  <children>
+    <TextField id="textField1" fx:id="projetName" layoutY="26.0" prefHeight="22.0" prefWidth="238.0" text="TextField" AnchorPane.rightAnchor="262.0" />
+    <Label id="label1" layoutX="35.0" layoutY="29.0" text="Nom :" />
+    <Label id="label2" layoutX="35.0" layoutY="59.0" text="Couleur" />
+    <TableView id="tableView1" fx:id="projetTable" prefHeight="286.0" prefWidth="559.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="100.0" />
+    <Button id="button1" fx:id="btnAdd" layoutX="441.0" layoutY="29.0" text="Button" />
+  </children>
+</AnchorPane>

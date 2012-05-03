@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="308.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.InfoBulleController">
+  <children>
+    <ImageView id="balinfo" layoutY="-2.0">
+      <image>
+        <Image url="@balinfo.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
+    <Label id="label1" layoutX="23.0" layoutY="14.0" prefHeight="24.0" prefWidth="98.0" text="Tâche en cours :" />
+    <Label id="label2" fx:id="tacheEnCours" layoutX="23.0" layoutY="38.0" prefHeight="16.0" prefWidth="260.0" />
+    <Button id="button1" fx:id="btnStop" layoutX="169.0" layoutY="82.0" onMouseClicked="#handleBtnStoper" prefHeight="21.0" prefWidth="73.0" text="Stoper" />
+    <Button id="button2" fx:id="btnContinuer" defaultButton="true" layoutX="65.0" layoutY="81.0" onMouseClicked="#handleBtnContinuer" text="Continuer" />
+    <Label id="label3" fx:id="lblTimer" layoutX="88.0" layoutY="102.0" prefHeight="16.0" prefWidth="33.0" />
+  </children>
+</AnchorPane>
