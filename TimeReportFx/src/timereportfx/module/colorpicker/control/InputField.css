@@ -3,7 +3,7 @@
 }
 
 .input-field {
-    -fx-skin: "timereportfx.colorpicker.skin.InputFieldSkin";
+    -fx-skin: "timereportfx.module.colorpicker.skin.InputFieldSkin";
     -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3, 2, 2;
@@ -23,7 +23,7 @@
 }
 
 .integer-field {
-    -fx-skin: "timereportfx.colorpicker.skin.IntegerFieldSkin";
+    -fx-skin: "timereportfx.module.colorpicker.skin.IntegerFieldSkin";
     -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3, 2, 2;
@@ -43,7 +43,7 @@
 }
 
 .double-field {
-    -fx-skin: "timereportfx.colorpicker.skin.DoubleFieldSkin";
+    -fx-skin: "timereportfx.module.colorpicker.skin.DoubleFieldSkin";
     -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3, 2, 2;
@@ -64,7 +64,7 @@
 
 
 .webcolor-field {
-    -fx-skin: "timereportfx.colorpicker.skin.WebColorFieldSkin";
+    -fx-skin: "timereportfx.module.colorpicker.skin.WebColorFieldSkin";
     -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 3, 2, 2;
