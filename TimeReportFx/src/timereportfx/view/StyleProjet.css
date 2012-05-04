@@ -25,3 +25,6 @@
 #test{
     -fx-background-image: url("balinfo.png") ;
 }
+.color-picker {
+    -fx-background-color: transparent;
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -14,4 +15,7 @@
     <TableView id="tableView1" fx:id="projetTable" prefHeight="286.0" prefWidth="559.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="100.0" />
     <Button id="button1" fx:id="btnAdd" layoutX="441.0" layoutY="29.0" text="Button" />
   </children>
+  <stylesheets>
+    <URL value="@StyleProjet.css" />
+  </stylesheets>
 </AnchorPane>

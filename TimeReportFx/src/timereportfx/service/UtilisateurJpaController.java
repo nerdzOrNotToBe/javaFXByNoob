@@ -275,7 +275,7 @@ public class UtilisateurJpaController implements Serializable {
         UtilisateurEntity u = null;
         EntityManager em = getEntityManager();
         try {
-            Query query = em.createNamedQuery("UtilisateurEntity.findByNom");
+            Query query = em.createNamedQuery("Utilisateur.findByNom");
             query.setParameter("nom", nom);
             u = (UtilisateurEntity) query.getSingleResult();
         }
