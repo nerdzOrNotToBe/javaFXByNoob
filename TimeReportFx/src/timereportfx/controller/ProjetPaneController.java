@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import timereportfx.module.colorpicker.ColorPicker;
-import timereportfx.models.entities.Projet;
+import timereportfx.models.entities.ProjetEntity;
 
 /**
  *
@@ -40,8 +40,8 @@ public class ProjetPaneController implements Initializable {
     @FXML
     private AnchorPane projetPane;
     private ProjetJpaController pjc;
-    private ObservableList<Projet> projets;
-    private ObservableObjectValue<Projet> projet;
+    private ObservableList<ProjetEntity> projets;
+    private ObservableObjectValue<ProjetEntity> projet;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {

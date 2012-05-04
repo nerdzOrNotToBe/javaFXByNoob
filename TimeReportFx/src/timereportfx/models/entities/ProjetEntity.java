@@ -18,11 +18,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "projet")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Projet.findAll", query = "SELECT p FROM Projet p"),
-    @NamedQuery(name = "Projet.findByIdprojet", query = "SELECT p FROM Projet p WHERE p.idprojet = :idprojet"),
-    @NamedQuery(name = "Projet.findByNom", query = "SELECT p FROM Projet p WHERE p.nom = :nom"),
-    @NamedQuery(name = "Projet.findByCouleur", query = "SELECT p FROM Projet p WHERE p.couleur = :couleur")})
-public class Projet implements Serializable {
+    @NamedQuery(name = "Projet.findAll", query = "SELECT p FROM ProjetEntity p"),
+    @NamedQuery(name = "Projet.findByIdprojet", query = "SELECT p FROM ProjetEntity p WHERE p.idprojet = :idprojet"),
+    @NamedQuery(name = "Projet.findByNom", query = "SELECT p FROM ProjetEntity p WHERE p.nom = :nom"),
+    @NamedQuery(name = "Projet.findByCouleur", query = "SELECT p FROM ProjetEntity p WHERE p.couleur = :couleur")})
+public class ProjetEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -33,12 +33,12 @@ public class Projet implements Serializable {
     @Column(name = "couleur")
     private String couleur;
     @OneToMany(mappedBy = "idprojet")
-    private Collection<Tache> tacheCollection;
+    private Collection<TacheEntity> tacheCollection;
 
-    public Projet() {
+    public ProjetEntity() {
     }
 
-    public Projet(Integer idprojet) {
+    public ProjetEntity(Integer idprojet) {
         this.idprojet = idprojet;
     }
 
@@ -67,11 +67,11 @@ public class Projet implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tache> getTacheCollection() {
+    public Collection<TacheEntity> getTacheCollection() {
         return tacheCollection;
     }
 
-    public void setTacheCollection(Collection<Tache> tacheCollection) {
+    public void setTacheCollection(Collection<TacheEntity> tacheCollection) {
         this.tacheCollection = tacheCollection;
     }
 
@@ -85,10 +85,10 @@ public class Projet implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Projet)) {
+        if (!(object instanceof ProjetEntity)) {
             return false;
         }
-        Projet other = (Projet) object;
+        ProjetEntity other = (ProjetEntity) object;
         if ((this.idprojet == null && other.idprojet != null) || (this.idprojet != null && !this.idprojet.equals(other.idprojet))) {
             return false;
         }
@@ -97,7 +97,7 @@ public class Projet implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Projet[ idprojet=" + idprojet + " ]";
+        return "timereportfx.models.ProjetEntity[ idprojet=" + idprojet + " ]";
     }
     
 }

@@ -35,10 +35,10 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import timereportfx.TimeReportFx;
 import timereportfx.service.exceptions.PreexistingEntityException;
-import timereportfx.models.entities.Projet;
-import timereportfx.models.entities.Tache;
-import timereportfx.models.entities.Timereport;
-import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.ProjetEntity;
+import timereportfx.models.entities.TacheEntity;
+import timereportfx.models.entities.TimereportEntity;
+import timereportfx.models.entities.UtilisateurEntity;
 
 /**
  *
@@ -55,12 +55,12 @@ public class Main implements Initializable {
     private ToggleGroup tg ;
     private ToggleButton bt;
     private TimeReportFx application;
-    private Projet projet;
+    private ProjetEntity projet;
     private ProjetJpaController pjc;
-    private Tache tache;
+    private TacheEntity tache;
     private TacheJpaController tjc;
-    private Utilisateur user;
-    private Timereport timereport;
+    private UtilisateurEntity user;
+    private TimereportEntity timereport;
     private Stage stagePoPup;
     private Timer timer;
     private int secondsTimer = 5;
@@ -113,25 +113,25 @@ public class Main implements Initializable {
         this.application = application;
     }
 
-    public void setUser(Utilisateur user) {
+    public void setUser(UtilisateurEntity user) {
         this.user = user;
     }
 
-    public Projet getProjet() {
+    public ProjetEntity getProjet() {
         return projet;
     }
 
-    public void setProjet(Projet projet) {
+    public void setProjet(ProjetEntity projet) {
         this.projet = projet;
     }
 
     public void findProjetTache() {
         pjc = new ProjetJpaController();
-        List<Projet> projetList = pjc.findProjetEntities();
+        List<ProjetEntity> projetList = pjc.findProjetEntities();
         tg = new ToggleGroup();
         Iterator iterator = projetList.iterator();
         while (iterator.hasNext()) {
-            Projet projet1 = (Projet) iterator.next();
+            ProjetEntity projet1 = (ProjetEntity) iterator.next();
             FXMLLoader loader = new FXMLLoader();
             InputStream in = Main.class.getResourceAsStream("../view/TitledPanePerso.fxml");
             loader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -161,12 +161,12 @@ public class Main implements Initializable {
         }
     }
 
-    public void startTache(Tache get) {
+    public void startTache(TacheEntity get) {
         stage.setIconified(true);
         timer = new Timer(false);
         timer.schedule(new PopPupTask(), secondsTimer * 1000, secondsTimer * 1000);
         tache = get;
-        timereport = new Timereport();
+        timereport = new TimereportEntity();
         timereport.setIdtache(tache);
         timereport.setTsDebut(new Date());
         timereport.setIdutilisateur(user);

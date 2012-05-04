@@ -24,7 +24,7 @@ import javax.persistence.Persistence;
 import timereportfx.controller.InfoBulleController;
 import timereportfx.controller.LoggingController;
 import timereportfx.controller.Main;
-import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.UtilisateurEntity;
 
 /**
  *
@@ -35,7 +35,7 @@ public class TimeReportFx extends Application {
     private static EntityManagerFactory emf;
     private Stage primaryStage;
     private Stage stageLoggin;
-    private Utilisateur user;
+    private UtilisateurEntity user;
     private LoggingController loggingController;
     private Main mainController;
 
@@ -74,7 +74,7 @@ public class TimeReportFx extends Application {
         }
     }
 
-    public void logged(Utilisateur u) {
+    public void logged(UtilisateurEntity u) {
         user = u;
         stageLoggin.close();
         mainController.findProjetTache();

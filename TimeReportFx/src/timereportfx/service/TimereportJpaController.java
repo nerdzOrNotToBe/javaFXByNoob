@@ -14,9 +14,9 @@ import timereportfx.TimeReportFx;
 //import javax.transaction.UserTransaction;
 import timereportfx.service.exceptions.NonexistentEntityException;
 import timereportfx.service.exceptions.PreexistingEntityException;
-import timereportfx.models.entities.Utilisateur;
-import timereportfx.models.entities.Tache;
-import timereportfx.models.entities.Timereport;
+import timereportfx.models.entities.UtilisateurEntity;
+import timereportfx.models.entities.TacheEntity;
+import timereportfx.models.entities.TimereportEntity;
 
 /**
  *
@@ -39,17 +39,17 @@ public class TimereportJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Timereport timereport) throws PreexistingEntityException, Exception {
+    public void create(TimereportEntity timereport) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Utilisateur idutilisateur = timereport.getIdutilisateur();
+            UtilisateurEntity idutilisateur = timereport.getIdutilisateur();
             if (idutilisateur != null) {
                 idutilisateur = em.getReference(idutilisateur.getClass(), idutilisateur.getIdutilisateur());
                 timereport.setIdutilisateur(idutilisateur);
             }
-            Tache idtache = timereport.getIdtache();
+            TacheEntity idtache = timereport.getIdtache();
             if (idtache != null) {
                 idtache = em.getReference(idtache.getClass(), idtache.getIdtache());
                 timereport.setIdtache(idtache);
@@ -76,16 +76,16 @@ public class TimereportJpaController implements Serializable {
         }
     }
 
-    public void edit(Timereport timereport) throws NonexistentEntityException, Exception {
+    public void edit(TimereportEntity timereport) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Timereport persistentTimereport = em.find(Timereport.class, timereport.getIdtimereport());
-            Utilisateur idutilisateurOld = persistentTimereport.getIdutilisateur();
-            Utilisateur idutilisateurNew = timereport.getIdutilisateur();
-            Tache idtacheOld = persistentTimereport.getIdtache();
-            Tache idtacheNew = timereport.getIdtache();
+            TimereportEntity persistentTimereport = em.find(TimereportEntity.class, timereport.getIdtimereport());
+            UtilisateurEntity idutilisateurOld = persistentTimereport.getIdutilisateur();
+            UtilisateurEntity idutilisateurNew = timereport.getIdutilisateur();
+            TacheEntity idtacheOld = persistentTimereport.getIdtache();
+            TacheEntity idtacheNew = timereport.getIdtache();
             if (idutilisateurNew != null) {
                 idutilisateurNew = em.getReference(idutilisateurNew.getClass(), idutilisateurNew.getIdutilisateur());
                 timereport.setIdutilisateur(idutilisateurNew);
@@ -133,19 +133,19 @@ public class TimereportJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Timereport timereport;
+            TimereportEntity timereport;
             try {
-                timereport = em.getReference(Timereport.class, id);
+                timereport = em.getReference(TimereportEntity.class, id);
                 timereport.getIdtimereport();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The timereport with id " + id + " no longer exists.", enfe);
             }
-            Utilisateur idutilisateur = timereport.getIdutilisateur();
+            UtilisateurEntity idutilisateur = timereport.getIdutilisateur();
             if (idutilisateur != null) {
                 idutilisateur.getTimereportCollection().remove(timereport);
                 idutilisateur = em.merge(idutilisateur);
             }
-            Tache idtache = timereport.getIdtache();
+            TacheEntity idtache = timereport.getIdtache();
             if (idtache != null) {
                 idtache.getTimereportCollection().remove(timereport);
                 idtache = em.merge(idtache);
@@ -159,18 +159,18 @@ public class TimereportJpaController implements Serializable {
         }
     }
 
-    public List<Timereport> findTimereportEntities() {
+    public List<TimereportEntity> findTimereportEntities() {
         return findTimereportEntities(true, -1, -1);
     }
 
-    public List<Timereport> findTimereportEntities(int maxResults, int firstResult) {
+    public List<TimereportEntity> findTimereportEntities(int maxResults, int firstResult) {
         return findTimereportEntities(false, maxResults, firstResult);
     }
 
-    private List<Timereport> findTimereportEntities(boolean all, int maxResults, int firstResult) {
+    private List<TimereportEntity> findTimereportEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select object(o) from Timereport as o");
+            Query q = em.createQuery("select object(o) from TimereportEntity as o");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -181,10 +181,10 @@ public class TimereportJpaController implements Serializable {
         }
     }
 
-    public Timereport findTimereport(Integer id) {
+    public TimereportEntity findTimereport(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Timereport.class, id);
+            return em.find(TimereportEntity.class, id);
         } finally {
             em.close();
         }
@@ -193,7 +193,7 @@ public class TimereportJpaController implements Serializable {
     public int getTimereportCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Timereport as o");
+            Query q = em.createQuery("select count(o) from TimereportEntity as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();

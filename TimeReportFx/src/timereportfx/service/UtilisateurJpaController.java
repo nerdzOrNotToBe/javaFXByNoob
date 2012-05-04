@@ -7,8 +7,8 @@ package timereportfx.service;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import timereportfx.models.entities.Groupe;
-import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.GroupeEntity;
+import timereportfx.models.entities.TacheEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +16,8 @@ import javax.persistence.*;
 //import javax.transaction.UserTransaction;
 import timereportfx.service.exceptions.NonexistentEntityException;
 import timereportfx.service.exceptions.PreexistingEntityException;
-import timereportfx.models.entities.Timereport;
-import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.TimereportEntity;
+import timereportfx.models.entities.UtilisateurEntity;
 
 /**
  *
@@ -40,30 +40,30 @@ public class UtilisateurJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Utilisateur utilisateur) throws PreexistingEntityException, Exception {
+    public void create(UtilisateurEntity utilisateur) throws PreexistingEntityException, Exception {
         if (utilisateur.getTacheCollection() == null) {
-            utilisateur.setTacheCollection(new ArrayList<Tache>());
+            utilisateur.setTacheCollection(new ArrayList<TacheEntity>());
         }
         if (utilisateur.getTimereportCollection() == null) {
-            utilisateur.setTimereportCollection(new ArrayList<Timereport>());
+            utilisateur.setTimereportCollection(new ArrayList<TimereportEntity>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Groupe idgroupe = utilisateur.getIdgroupe();
+            GroupeEntity idgroupe = utilisateur.getIdgroupe();
             if (idgroupe != null) {
                 idgroupe = em.getReference(idgroupe.getClass(), idgroupe.getIdgroupe());
                 utilisateur.setIdgroupe(idgroupe);
             }
-            Collection<Tache> attachedTacheCollection = new ArrayList<Tache>();
-            for (Tache tacheCollectionTacheToAttach : utilisateur.getTacheCollection()) {
+            Collection<TacheEntity> attachedTacheCollection = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionTacheToAttach : utilisateur.getTacheCollection()) {
                 tacheCollectionTacheToAttach = em.getReference(tacheCollectionTacheToAttach.getClass(), tacheCollectionTacheToAttach.getIdtache());
                 attachedTacheCollection.add(tacheCollectionTacheToAttach);
             }
             utilisateur.setTacheCollection(attachedTacheCollection);
-            Collection<Timereport> attachedTimereportCollection = new ArrayList<Timereport>();
-            for (Timereport timereportCollectionTimereportToAttach : utilisateur.getTimereportCollection()) {
+            Collection<TimereportEntity> attachedTimereportCollection = new ArrayList<TimereportEntity>();
+            for (TimereportEntity timereportCollectionTimereportToAttach : utilisateur.getTimereportCollection()) {
                 timereportCollectionTimereportToAttach = em.getReference(timereportCollectionTimereportToAttach.getClass(), timereportCollectionTimereportToAttach.getIdtimereport());
                 attachedTimereportCollection.add(timereportCollectionTimereportToAttach);
             }
@@ -73,8 +73,8 @@ public class UtilisateurJpaController implements Serializable {
                 idgroupe.getUtilisateurCollection().add(utilisateur);
                 idgroupe = em.merge(idgroupe);
             }
-            for (Tache tacheCollectionTache : utilisateur.getTacheCollection()) {
-                Utilisateur oldIdutilisateurOfTacheCollectionTache = tacheCollectionTache.getIdutilisateur();
+            for (TacheEntity tacheCollectionTache : utilisateur.getTacheCollection()) {
+                UtilisateurEntity oldIdutilisateurOfTacheCollectionTache = tacheCollectionTache.getIdutilisateur();
                 tacheCollectionTache.setIdutilisateur(utilisateur);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
                 if (oldIdutilisateurOfTacheCollectionTache != null) {
@@ -82,8 +82,8 @@ public class UtilisateurJpaController implements Serializable {
                     oldIdutilisateurOfTacheCollectionTache = em.merge(oldIdutilisateurOfTacheCollectionTache);
                 }
             }
-            for (Timereport timereportCollectionTimereport : utilisateur.getTimereportCollection()) {
-                Utilisateur oldIdutilisateurOfTimereportCollectionTimereport = timereportCollectionTimereport.getIdutilisateur();
+            for (TimereportEntity timereportCollectionTimereport : utilisateur.getTimereportCollection()) {
+                UtilisateurEntity oldIdutilisateurOfTimereportCollectionTimereport = timereportCollectionTimereport.getIdutilisateur();
                 timereportCollectionTimereport.setIdutilisateur(utilisateur);
                 timereportCollectionTimereport = em.merge(timereportCollectionTimereport);
                 if (oldIdutilisateurOfTimereportCollectionTimereport != null) {
@@ -104,31 +104,31 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
-    public void edit(Utilisateur utilisateur) throws NonexistentEntityException, Exception {
+    public void edit(UtilisateurEntity utilisateur) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Utilisateur persistentUtilisateur = em.find(Utilisateur.class, utilisateur.getIdutilisateur());
-            Groupe idgroupeOld = persistentUtilisateur.getIdgroupe();
-            Groupe idgroupeNew = utilisateur.getIdgroupe();
-            Collection<Tache> tacheCollectionOld = persistentUtilisateur.getTacheCollection();
-            Collection<Tache> tacheCollectionNew = utilisateur.getTacheCollection();
-            Collection<Timereport> timereportCollectionOld = persistentUtilisateur.getTimereportCollection();
-            Collection<Timereport> timereportCollectionNew = utilisateur.getTimereportCollection();
+            UtilisateurEntity persistentUtilisateur = em.find(UtilisateurEntity.class, utilisateur.getIdutilisateur());
+            GroupeEntity idgroupeOld = persistentUtilisateur.getIdgroupe();
+            GroupeEntity idgroupeNew = utilisateur.getIdgroupe();
+            Collection<TacheEntity> tacheCollectionOld = persistentUtilisateur.getTacheCollection();
+            Collection<TacheEntity> tacheCollectionNew = utilisateur.getTacheCollection();
+            Collection<TimereportEntity> timereportCollectionOld = persistentUtilisateur.getTimereportCollection();
+            Collection<TimereportEntity> timereportCollectionNew = utilisateur.getTimereportCollection();
             if (idgroupeNew != null) {
                 idgroupeNew = em.getReference(idgroupeNew.getClass(), idgroupeNew.getIdgroupe());
                 utilisateur.setIdgroupe(idgroupeNew);
             }
-            Collection<Tache> attachedTacheCollectionNew = new ArrayList<Tache>();
-            for (Tache tacheCollectionNewTacheToAttach : tacheCollectionNew) {
+            Collection<TacheEntity> attachedTacheCollectionNew = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionNewTacheToAttach : tacheCollectionNew) {
                 tacheCollectionNewTacheToAttach = em.getReference(tacheCollectionNewTacheToAttach.getClass(), tacheCollectionNewTacheToAttach.getIdtache());
                 attachedTacheCollectionNew.add(tacheCollectionNewTacheToAttach);
             }
             tacheCollectionNew = attachedTacheCollectionNew;
             utilisateur.setTacheCollection(tacheCollectionNew);
-            Collection<Timereport> attachedTimereportCollectionNew = new ArrayList<Timereport>();
-            for (Timereport timereportCollectionNewTimereportToAttach : timereportCollectionNew) {
+            Collection<TimereportEntity> attachedTimereportCollectionNew = new ArrayList<TimereportEntity>();
+            for (TimereportEntity timereportCollectionNewTimereportToAttach : timereportCollectionNew) {
                 timereportCollectionNewTimereportToAttach = em.getReference(timereportCollectionNewTimereportToAttach.getClass(), timereportCollectionNewTimereportToAttach.getIdtimereport());
                 attachedTimereportCollectionNew.add(timereportCollectionNewTimereportToAttach);
             }
@@ -143,15 +143,15 @@ public class UtilisateurJpaController implements Serializable {
                 idgroupeNew.getUtilisateurCollection().add(utilisateur);
                 idgroupeNew = em.merge(idgroupeNew);
             }
-            for (Tache tacheCollectionOldTache : tacheCollectionOld) {
+            for (TacheEntity tacheCollectionOldTache : tacheCollectionOld) {
                 if (!tacheCollectionNew.contains(tacheCollectionOldTache)) {
                     tacheCollectionOldTache.setIdutilisateur(null);
                     tacheCollectionOldTache = em.merge(tacheCollectionOldTache);
                 }
             }
-            for (Tache tacheCollectionNewTache : tacheCollectionNew) {
+            for (TacheEntity tacheCollectionNewTache : tacheCollectionNew) {
                 if (!tacheCollectionOld.contains(tacheCollectionNewTache)) {
-                    Utilisateur oldIdutilisateurOfTacheCollectionNewTache = tacheCollectionNewTache.getIdutilisateur();
+                    UtilisateurEntity oldIdutilisateurOfTacheCollectionNewTache = tacheCollectionNewTache.getIdutilisateur();
                     tacheCollectionNewTache.setIdutilisateur(utilisateur);
                     tacheCollectionNewTache = em.merge(tacheCollectionNewTache);
                     if (oldIdutilisateurOfTacheCollectionNewTache != null && !oldIdutilisateurOfTacheCollectionNewTache.equals(utilisateur)) {
@@ -160,15 +160,15 @@ public class UtilisateurJpaController implements Serializable {
                     }
                 }
             }
-            for (Timereport timereportCollectionOldTimereport : timereportCollectionOld) {
+            for (TimereportEntity timereportCollectionOldTimereport : timereportCollectionOld) {
                 if (!timereportCollectionNew.contains(timereportCollectionOldTimereport)) {
                     timereportCollectionOldTimereport.setIdutilisateur(null);
                     timereportCollectionOldTimereport = em.merge(timereportCollectionOldTimereport);
                 }
             }
-            for (Timereport timereportCollectionNewTimereport : timereportCollectionNew) {
+            for (TimereportEntity timereportCollectionNewTimereport : timereportCollectionNew) {
                 if (!timereportCollectionOld.contains(timereportCollectionNewTimereport)) {
-                    Utilisateur oldIdutilisateurOfTimereportCollectionNewTimereport = timereportCollectionNewTimereport.getIdutilisateur();
+                    UtilisateurEntity oldIdutilisateurOfTimereportCollectionNewTimereport = timereportCollectionNewTimereport.getIdutilisateur();
                     timereportCollectionNewTimereport.setIdutilisateur(utilisateur);
                     timereportCollectionNewTimereport = em.merge(timereportCollectionNewTimereport);
                     if (oldIdutilisateurOfTimereportCollectionNewTimereport != null && !oldIdutilisateurOfTimereportCollectionNewTimereport.equals(utilisateur)) {
@@ -199,25 +199,25 @@ public class UtilisateurJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Utilisateur utilisateur;
+            UtilisateurEntity utilisateur;
             try {
-                utilisateur = em.getReference(Utilisateur.class, id);
+                utilisateur = em.getReference(UtilisateurEntity.class, id);
                 utilisateur.getIdutilisateur();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The utilisateur with id " + id + " no longer exists.", enfe);
             }
-            Groupe idgroupe = utilisateur.getIdgroupe();
+            GroupeEntity idgroupe = utilisateur.getIdgroupe();
             if (idgroupe != null) {
                 idgroupe.getUtilisateurCollection().remove(utilisateur);
                 idgroupe = em.merge(idgroupe);
             }
-            Collection<Tache> tacheCollection = utilisateur.getTacheCollection();
-            for (Tache tacheCollectionTache : tacheCollection) {
+            Collection<TacheEntity> tacheCollection = utilisateur.getTacheCollection();
+            for (TacheEntity tacheCollectionTache : tacheCollection) {
                 tacheCollectionTache.setIdutilisateur(null);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
             }
-            Collection<Timereport> timereportCollection = utilisateur.getTimereportCollection();
-            for (Timereport timereportCollectionTimereport : timereportCollection) {
+            Collection<TimereportEntity> timereportCollection = utilisateur.getTimereportCollection();
+            for (TimereportEntity timereportCollectionTimereport : timereportCollection) {
                 timereportCollectionTimereport.setIdutilisateur(null);
                 timereportCollectionTimereport = em.merge(timereportCollectionTimereport);
             }
@@ -230,18 +230,18 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
-    public List<Utilisateur> findUtilisateurEntities() {
+    public List<UtilisateurEntity> findUtilisateurEntities() {
         return findUtilisateurEntities(true, -1, -1);
     }
 
-    public List<Utilisateur> findUtilisateurEntities(int maxResults, int firstResult) {
+    public List<UtilisateurEntity> findUtilisateurEntities(int maxResults, int firstResult) {
         return findUtilisateurEntities(false, maxResults, firstResult);
     }
 
-    private List<Utilisateur> findUtilisateurEntities(boolean all, int maxResults, int firstResult) {
+    private List<UtilisateurEntity> findUtilisateurEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select object(o) from Utilisateur as o");
+            Query q = em.createQuery("select object(o) from UtilisateurEntity as o");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -252,10 +252,10 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
-    public Utilisateur findUtilisateur(Integer id) {
+    public UtilisateurEntity findUtilisateur(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Utilisateur.class, id);
+            return em.find(UtilisateurEntity.class, id);
         } finally {
             em.close();
         }
@@ -264,20 +264,20 @@ public class UtilisateurJpaController implements Serializable {
     public int getUtilisateurCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Utilisateur as o");
+            Query q = em.createQuery("select count(o) from UtilisateurEntity as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
         }
     }
 
-    public Utilisateur findUtilisateurByNom(String nom) {
-        Utilisateur u = null;
+    public UtilisateurEntity findUtilisateurByNom(String nom) {
+        UtilisateurEntity u = null;
         EntityManager em = getEntityManager();
         try {
-            Query query = em.createNamedQuery("Utilisateur.findByNom");
+            Query query = em.createNamedQuery("UtilisateurEntity.findByNom");
             query.setParameter("nom", nom);
-            u = (Utilisateur) query.getSingleResult();
+            u = (UtilisateurEntity) query.getSingleResult();
         }
         catch (NoResultException e){
             

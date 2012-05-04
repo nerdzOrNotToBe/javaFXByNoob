@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "groupe")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Groupe.findAll", query = "SELECT g FROM Groupe g"),
-    @NamedQuery(name = "Groupe.findByIdgroupe", query = "SELECT g FROM Groupe g WHERE g.idgroupe = :idgroupe"),
-    @NamedQuery(name = "Groupe.findByNom", query = "SELECT g FROM Groupe g WHERE g.nom = :nom")})
-public class Groupe implements Serializable {
+    @NamedQuery(name = "Groupe.findAll", query = "SELECT g FROM GroupeEntity g"),
+    @NamedQuery(name = "Groupe.findByIdgroupe", query = "SELECT g FROM GroupeEntity g WHERE g.idgroupe = :idgroupe"),
+    @NamedQuery(name = "Groupe.findByNom", query = "SELECT g FROM GroupeEntity g WHERE g.nom = :nom")})
+public class GroupeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -30,12 +30,12 @@ public class Groupe implements Serializable {
     @Column(name = "nom")
     private String nom;
     @OneToMany(mappedBy = "idgroupe")
-    private Collection<Utilisateur> utilisateurCollection;
+    private Collection<UtilisateurEntity> utilisateurCollection;
 
-    public Groupe() {
+    public GroupeEntity() {
     }
 
-    public Groupe(Integer idgroupe) {
+    public GroupeEntity(Integer idgroupe) {
         this.idgroupe = idgroupe;
     }
 
@@ -56,11 +56,11 @@ public class Groupe implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Utilisateur> getUtilisateurCollection() {
+    public Collection<UtilisateurEntity> getUtilisateurCollection() {
         return utilisateurCollection;
     }
 
-    public void setUtilisateurCollection(Collection<Utilisateur> utilisateurCollection) {
+    public void setUtilisateurCollection(Collection<UtilisateurEntity> utilisateurCollection) {
         this.utilisateurCollection = utilisateurCollection;
     }
 
@@ -74,10 +74,10 @@ public class Groupe implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Groupe)) {
+        if (!(object instanceof GroupeEntity)) {
             return false;
         }
-        Groupe other = (Groupe) object;
+        GroupeEntity other = (GroupeEntity) object;
         if ((this.idgroupe == null && other.idgroupe != null) || (this.idgroupe != null && !this.idgroupe.equals(other.idgroupe))) {
             return false;
         }
@@ -86,7 +86,7 @@ public class Groupe implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Groupe[ idgroupe=" + idgroupe + " ]";
+        return "timereportfx.models.GroupeEntity[ idgroupe=" + idgroupe + " ]";
     }
     
 }

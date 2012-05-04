@@ -4,14 +4,14 @@
  */
 package timereportfx.service;
 
-import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.TacheEntity;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import timereportfx.models.entities.Utilisateur;
-import timereportfx.models.entities.Projet;
-import timereportfx.models.entities.Categorie;
-import timereportfx.models.entities.Timereport;
+import timereportfx.models.entities.UtilisateurEntity;
+import timereportfx.models.entities.ProjetEntity;
+import timereportfx.models.entities.CategorieEntity;
+import timereportfx.models.entities.TimereportEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,31 +38,31 @@ public class TacheJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Tache tache) throws PreexistingEntityException, Exception {
+    public void create(TacheEntity tache) throws PreexistingEntityException, Exception {
         if (tache.getTimereportCollection() == null) {
-            tache.setTimereportCollection(new ArrayList<Timereport>());
+            tache.setTimereportCollection(new ArrayList<TimereportEntity>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Utilisateur idutilisateur = tache.getIdutilisateur();
+            UtilisateurEntity idutilisateur = tache.getIdutilisateur();
             if (idutilisateur != null) {
                 idutilisateur = em.getReference(idutilisateur.getClass(), idutilisateur.getIdutilisateur());
                 tache.setIdutilisateur(idutilisateur);
             }
-            Projet idprojet = tache.getIdprojet();
+            ProjetEntity idprojet = tache.getIdprojet();
             if (idprojet != null) {
                 idprojet = em.getReference(idprojet.getClass(), idprojet.getIdprojet());
                 tache.setIdprojet(idprojet);
             }
-            Categorie cdCtg = tache.getCdCtg();
+            CategorieEntity cdCtg = tache.getCdCtg();
             if (cdCtg != null) {
                 cdCtg = em.getReference(cdCtg.getClass(), cdCtg.getCdCtg());
                 tache.setCdCtg(cdCtg);
             }
-            Collection<Timereport> attachedTimereportCollection = new ArrayList<Timereport>();
-            for (Timereport timereportCollectionTimereportToAttach : tache.getTimereportCollection()) {
+            Collection<TimereportEntity> attachedTimereportCollection = new ArrayList<TimereportEntity>();
+            for (TimereportEntity timereportCollectionTimereportToAttach : tache.getTimereportCollection()) {
                 timereportCollectionTimereportToAttach = em.getReference(timereportCollectionTimereportToAttach.getClass(), timereportCollectionTimereportToAttach.getIdtimereport());
                 attachedTimereportCollection.add(timereportCollectionTimereportToAttach);
             }
@@ -80,8 +80,8 @@ public class TacheJpaController implements Serializable {
                 cdCtg.getTacheCollection().add(tache);
                 cdCtg = em.merge(cdCtg);
             }
-            for (Timereport timereportCollectionTimereport : tache.getTimereportCollection()) {
-                Tache oldIdtacheOfTimereportCollectionTimereport = timereportCollectionTimereport.getIdtache();
+            for (TimereportEntity timereportCollectionTimereport : tache.getTimereportCollection()) {
+                TacheEntity oldIdtacheOfTimereportCollectionTimereport = timereportCollectionTimereport.getIdtache();
                 timereportCollectionTimereport.setIdtache(tache);
                 timereportCollectionTimereport = em.merge(timereportCollectionTimereport);
                 if (oldIdtacheOfTimereportCollectionTimereport != null) {
@@ -102,20 +102,20 @@ public class TacheJpaController implements Serializable {
         }
     }
 
-    public void edit(Tache tache) throws NonexistentEntityException, Exception {
+    public void edit(TacheEntity tache) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tache persistentTache = em.find(Tache.class, tache.getIdtache());
-            Utilisateur idutilisateurOld = persistentTache.getIdutilisateur();
-            Utilisateur idutilisateurNew = tache.getIdutilisateur();
-            Projet idprojetOld = persistentTache.getIdprojet();
-            Projet idprojetNew = tache.getIdprojet();
-            Categorie cdCtgOld = persistentTache.getCdCtg();
-            Categorie cdCtgNew = tache.getCdCtg();
-            Collection<Timereport> timereportCollectionOld = persistentTache.getTimereportCollection();
-            Collection<Timereport> timereportCollectionNew = tache.getTimereportCollection();
+            TacheEntity persistentTache = em.find(TacheEntity.class, tache.getIdtache());
+            UtilisateurEntity idutilisateurOld = persistentTache.getIdutilisateur();
+            UtilisateurEntity idutilisateurNew = tache.getIdutilisateur();
+            ProjetEntity idprojetOld = persistentTache.getIdprojet();
+            ProjetEntity idprojetNew = tache.getIdprojet();
+            CategorieEntity cdCtgOld = persistentTache.getCdCtg();
+            CategorieEntity cdCtgNew = tache.getCdCtg();
+            Collection<TimereportEntity> timereportCollectionOld = persistentTache.getTimereportCollection();
+            Collection<TimereportEntity> timereportCollectionNew = tache.getTimereportCollection();
             if (idutilisateurNew != null) {
                 idutilisateurNew = em.getReference(idutilisateurNew.getClass(), idutilisateurNew.getIdutilisateur());
                 tache.setIdutilisateur(idutilisateurNew);
@@ -128,8 +128,8 @@ public class TacheJpaController implements Serializable {
                 cdCtgNew = em.getReference(cdCtgNew.getClass(), cdCtgNew.getCdCtg());
                 tache.setCdCtg(cdCtgNew);
             }
-            Collection<Timereport> attachedTimereportCollectionNew = new ArrayList<Timereport>();
-            for (Timereport timereportCollectionNewTimereportToAttach : timereportCollectionNew) {
+            Collection<TimereportEntity> attachedTimereportCollectionNew = new ArrayList<TimereportEntity>();
+            for (TimereportEntity timereportCollectionNewTimereportToAttach : timereportCollectionNew) {
                 timereportCollectionNewTimereportToAttach = em.getReference(timereportCollectionNewTimereportToAttach.getClass(), timereportCollectionNewTimereportToAttach.getIdtimereport());
                 attachedTimereportCollectionNew.add(timereportCollectionNewTimereportToAttach);
             }
@@ -160,15 +160,15 @@ public class TacheJpaController implements Serializable {
                 cdCtgNew.getTacheCollection().add(tache);
                 cdCtgNew = em.merge(cdCtgNew);
             }
-            for (Timereport timereportCollectionOldTimereport : timereportCollectionOld) {
+            for (TimereportEntity timereportCollectionOldTimereport : timereportCollectionOld) {
                 if (!timereportCollectionNew.contains(timereportCollectionOldTimereport)) {
                     timereportCollectionOldTimereport.setIdtache(null);
                     timereportCollectionOldTimereport = em.merge(timereportCollectionOldTimereport);
                 }
             }
-            for (Timereport timereportCollectionNewTimereport : timereportCollectionNew) {
+            for (TimereportEntity timereportCollectionNewTimereport : timereportCollectionNew) {
                 if (!timereportCollectionOld.contains(timereportCollectionNewTimereport)) {
-                    Tache oldIdtacheOfTimereportCollectionNewTimereport = timereportCollectionNewTimereport.getIdtache();
+                    TacheEntity oldIdtacheOfTimereportCollectionNewTimereport = timereportCollectionNewTimereport.getIdtache();
                     timereportCollectionNewTimereport.setIdtache(tache);
                     timereportCollectionNewTimereport = em.merge(timereportCollectionNewTimereport);
                     if (oldIdtacheOfTimereportCollectionNewTimereport != null && !oldIdtacheOfTimereportCollectionNewTimereport.equals(tache)) {
@@ -199,30 +199,30 @@ public class TacheJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tache tache;
+            TacheEntity tache;
             try {
-                tache = em.getReference(Tache.class, id);
+                tache = em.getReference(TacheEntity.class, id);
                 tache.getIdtache();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tache with id " + id + " no longer exists.", enfe);
             }
-            Utilisateur idutilisateur = tache.getIdutilisateur();
+            UtilisateurEntity idutilisateur = tache.getIdutilisateur();
             if (idutilisateur != null) {
                 idutilisateur.getTacheCollection().remove(tache);
                 idutilisateur = em.merge(idutilisateur);
             }
-            Projet idprojet = tache.getIdprojet();
+            ProjetEntity idprojet = tache.getIdprojet();
             if (idprojet != null) {
                 idprojet.getTacheCollection().remove(tache);
                 idprojet = em.merge(idprojet);
             }
-            Categorie cdCtg = tache.getCdCtg();
+            CategorieEntity cdCtg = tache.getCdCtg();
             if (cdCtg != null) {
                 cdCtg.getTacheCollection().remove(tache);
                 cdCtg = em.merge(cdCtg);
             }
-            Collection<Timereport> timereportCollection = tache.getTimereportCollection();
-            for (Timereport timereportCollectionTimereport : timereportCollection) {
+            Collection<TimereportEntity> timereportCollection = tache.getTimereportCollection();
+            for (TimereportEntity timereportCollectionTimereport : timereportCollection) {
                 timereportCollectionTimereport.setIdtache(null);
                 timereportCollectionTimereport = em.merge(timereportCollectionTimereport);
             }
@@ -235,18 +235,18 @@ public class TacheJpaController implements Serializable {
         }
     }
 
-    public List<Tache> findTacheEntities() {
+    public List<TacheEntity> findTacheEntities() {
         return findTacheEntities(true, -1, -1);
     }
 
-    public List<Tache> findTacheEntities(int maxResults, int firstResult) {
+    public List<TacheEntity> findTacheEntities(int maxResults, int firstResult) {
         return findTacheEntities(false, maxResults, firstResult);
     }
 
-    private List<Tache> findTacheEntities(boolean all, int maxResults, int firstResult) {
+    private List<TacheEntity> findTacheEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select object(o) from Tache as o");
+            Query q = em.createQuery("select object(o) from TacheEntity as o");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -257,10 +257,10 @@ public class TacheJpaController implements Serializable {
         }
     }
 
-    public Tache findTache(Integer id) {
+    public TacheEntity findTache(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Tache.class, id);
+            return em.find(TacheEntity.class, id);
         } finally {
             em.close();
         }
@@ -269,7 +269,7 @@ public class TacheJpaController implements Serializable {
     public int getTacheCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Tache as o");
+            Query q = em.createQuery("select count(o) from TacheEntity as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();

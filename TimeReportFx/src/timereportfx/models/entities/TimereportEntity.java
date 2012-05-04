@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "timereport")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Timereport.findAll", query = "SELECT t FROM Timereport t"),
-    @NamedQuery(name = "Timereport.findByIdtimereport", query = "SELECT t FROM Timereport t WHERE t.idtimereport = :idtimereport"),
-    @NamedQuery(name = "Timereport.findByTsDebut", query = "SELECT t FROM Timereport t WHERE t.tsDebut = :tsDebut"),
-    @NamedQuery(name = "Timereport.findByTsFin", query = "SELECT t FROM Timereport t WHERE t.tsFin = :tsFin"),
-    @NamedQuery(name = "Timereport.findByDuree", query = "SELECT t FROM Timereport t WHERE t.duree = :duree")})
-public class Timereport implements Serializable {
+    @NamedQuery(name = "Timereport.findAll", query = "SELECT t FROM TimereportEntity t"),
+    @NamedQuery(name = "Timereport.findByIdtimereport", query = "SELECT t FROM TimereportEntity t WHERE t.idtimereport = :idtimereport"),
+    @NamedQuery(name = "Timereport.findByTsDebut", query = "SELECT t FROM TimereportEntity t WHERE t.tsDebut = :tsDebut"),
+    @NamedQuery(name = "Timereport.findByTsFin", query = "SELECT t FROM TimereportEntity t WHERE t.tsFin = :tsFin"),
+    @NamedQuery(name = "Timereport.findByDuree", query = "SELECT t FROM TimereportEntity t WHERE t.duree = :duree")})
+public class TimereportEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -39,15 +39,15 @@ public class Timereport implements Serializable {
     private Integer duree;
     @JoinColumn(name = "idutilisateur", referencedColumnName = "idutilisateur")
     @ManyToOne
-    private Utilisateur idutilisateur;
+    private UtilisateurEntity idutilisateur;
     @JoinColumn(name = "idtache", referencedColumnName = "idtache")
     @ManyToOne
-    private Tache idtache;
+    private TacheEntity idtache;
 
-    public Timereport() {
+    public TimereportEntity() {
     }
 
-    public Timereport(Integer idtimereport) {
+    public TimereportEntity(Integer idtimereport) {
         this.idtimereport = idtimereport;
     }
 
@@ -83,19 +83,19 @@ public class Timereport implements Serializable {
         this.duree = duree;
     }
 
-    public Utilisateur getIdutilisateur() {
+    public UtilisateurEntity getIdutilisateur() {
         return idutilisateur;
     }
 
-    public void setIdutilisateur(Utilisateur idutilisateur) {
+    public void setIdutilisateur(UtilisateurEntity idutilisateur) {
         this.idutilisateur = idutilisateur;
     }
 
-    public Tache getIdtache() {
+    public TacheEntity getIdtache() {
         return idtache;
     }
 
-    public void setIdtache(Tache idtache) {
+    public void setIdtache(TacheEntity idtache) {
         this.idtache = idtache;
     }
 
@@ -109,10 +109,10 @@ public class Timereport implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Timereport)) {
+        if (!(object instanceof TimereportEntity)) {
             return false;
         }
-        Timereport other = (Timereport) object;
+        TimereportEntity other = (TimereportEntity) object;
         if ((this.idtimereport == null && other.idtimereport != null) || (this.idtimereport != null && !this.idtimereport.equals(other.idtimereport))) {
             return false;
         }
@@ -121,7 +121,7 @@ public class Timereport implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Timereport[ idtimereport=" + idtimereport + " ]";
+        return "timereportfx.models.TimereportEntity[ idtimereport=" + idtimereport + " ]";
     }
     
 }

@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import timereportfx.TimeReportFx;
-import timereportfx.models.entities.Utilisateur;
+import timereportfx.models.entities.UtilisateurEntity;
 
 /**
  *
@@ -36,7 +36,7 @@ public class LoggingController implements Initializable {
     @FXML
     private void okClick(ActionEvent e) {
         UJPA = new UtilisateurJpaController();
-        Utilisateur u = UJPA.findUtilisateurByNom(txt_userName.getText());
+        UtilisateurEntity u = UJPA.findUtilisateurByNom(txt_userName.getText());
         if (u == null ) {
             lbl_error.setOpacity(1);
         } else {

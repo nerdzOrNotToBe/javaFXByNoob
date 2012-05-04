@@ -19,15 +19,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "utilisateur")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
-    @NamedQuery(name = "Utilisateur.findByIdutilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idutilisateur = :idutilisateur"),
-    @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM Utilisateur u WHERE u.nom = :nom"),
-    @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM Utilisateur u WHERE u.prenom = :prenom"),
-    @NamedQuery(name = "Utilisateur.findByDebutJ", query = "SELECT u FROM Utilisateur u WHERE u.debutJ = :debutJ"),
-    @NamedQuery(name = "Utilisateur.findByFinJ", query = "SELECT u FROM Utilisateur u WHERE u.finJ = :finJ"),
-    @NamedQuery(name = "Utilisateur.findByDebutRepas", query = "SELECT u FROM Utilisateur u WHERE u.debutRepas = :debutRepas"),
-    @NamedQuery(name = "Utilisateur.findByFinRepas", query = "SELECT u FROM Utilisateur u WHERE u.finRepas = :finRepas")})
-public class Utilisateur implements Serializable {
+    @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM UtilisateurEntity u"),
+    @NamedQuery(name = "Utilisateur.findByIdutilisateur", query = "SELECT u FROM UtilisateurEntity u WHERE u.idutilisateur = :idutilisateur"),
+    @NamedQuery(name = "Utilisateur.findByNom", query = "SELECT u FROM UtilisateurEntity u WHERE u.nom = :nom"),
+    @NamedQuery(name = "Utilisateur.findByPrenom", query = "SELECT u FROM UtilisateurEntity u WHERE u.prenom = :prenom"),
+    @NamedQuery(name = "Utilisateur.findByDebutJ", query = "SELECT u FROM UtilisateurEntity u WHERE u.debutJ = :debutJ"),
+    @NamedQuery(name = "Utilisateur.findByFinJ", query = "SELECT u FROM UtilisateurEntity u WHERE u.finJ = :finJ"),
+    @NamedQuery(name = "Utilisateur.findByDebutRepas", query = "SELECT u FROM UtilisateurEntity u WHERE u.debutRepas = :debutRepas"),
+    @NamedQuery(name = "Utilisateur.findByFinRepas", query = "SELECT u FROM UtilisateurEntity u WHERE u.finRepas = :finRepas")})
+public class UtilisateurEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,17 +50,17 @@ public class Utilisateur implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date finRepas;
     @OneToMany(mappedBy = "idutilisateur")
-    private Collection<Tache> tacheCollection;
+    private Collection<TacheEntity> tacheCollection;
     @OneToMany(mappedBy = "idutilisateur")
-    private Collection<Timereport> timereportCollection;
+    private Collection<TimereportEntity> timereportCollection;
     @JoinColumn(name = "idgroupe", referencedColumnName = "idgroupe")
     @ManyToOne
-    private Groupe idgroupe;
+    private GroupeEntity idgroupe;
 
-    public Utilisateur() {
+    public UtilisateurEntity() {
     }
 
-    public Utilisateur(Integer idutilisateur) {
+    public UtilisateurEntity(Integer idutilisateur) {
         this.idutilisateur = idutilisateur;
     }
 
@@ -121,28 +121,28 @@ public class Utilisateur implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tache> getTacheCollection() {
+    public Collection<TacheEntity> getTacheCollection() {
         return tacheCollection;
     }
 
-    public void setTacheCollection(Collection<Tache> tacheCollection) {
+    public void setTacheCollection(Collection<TacheEntity> tacheCollection) {
         this.tacheCollection = tacheCollection;
     }
 
     @XmlTransient
-    public Collection<Timereport> getTimereportCollection() {
+    public Collection<TimereportEntity> getTimereportCollection() {
         return timereportCollection;
     }
 
-    public void setTimereportCollection(Collection<Timereport> timereportCollection) {
+    public void setTimereportCollection(Collection<TimereportEntity> timereportCollection) {
         this.timereportCollection = timereportCollection;
     }
 
-    public Groupe getIdgroupe() {
+    public GroupeEntity getIdgroupe() {
         return idgroupe;
     }
 
-    public void setIdgroupe(Groupe idgroupe) {
+    public void setIdgroupe(GroupeEntity idgroupe) {
         this.idgroupe = idgroupe;
     }
 
@@ -156,10 +156,10 @@ public class Utilisateur implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Utilisateur)) {
+        if (!(object instanceof UtilisateurEntity)) {
             return false;
         }
-        Utilisateur other = (Utilisateur) object;
+        UtilisateurEntity other = (UtilisateurEntity) object;
         if ((this.idutilisateur == null && other.idutilisateur != null) || (this.idutilisateur != null && !this.idutilisateur.equals(other.idutilisateur))) {
             return false;
         }
@@ -168,7 +168,7 @@ public class Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Utilisateur[ idutilisateur=" + idutilisateur + " ]";
+        return "timereportfx.models.UtilisateurEntity[ idutilisateur=" + idutilisateur + " ]";
     }
     
 }

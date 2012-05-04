@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "categorie")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Categorie.findAll", query = "SELECT c FROM Categorie c"),
-    @NamedQuery(name = "Categorie.findByCdCtg", query = "SELECT c FROM Categorie c WHERE c.cdCtg = :cdCtg"),
-    @NamedQuery(name = "Categorie.findByLbCtg", query = "SELECT c FROM Categorie c WHERE c.lbCtg = :lbCtg")})
-public class Categorie implements Serializable {
+    @NamedQuery(name = "Categorie.findAll", query = "SELECT c FROM CategorieEntity c"),
+    @NamedQuery(name = "Categorie.findByCdCtg", query = "SELECT c FROM CategorieEntity c WHERE c.cdCtg = :cdCtg"),
+    @NamedQuery(name = "Categorie.findByLbCtg", query = "SELECT c FROM CategorieEntity c WHERE c.lbCtg = :lbCtg")})
+public class CategorieEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -31,16 +31,16 @@ public class Categorie implements Serializable {
     @Column(name = "lb_ctg")
     private String lbCtg;
     @OneToMany(mappedBy = "cdCtg")
-    private Collection<Tache> tacheCollection;
+    private Collection<TacheEntity> tacheCollection;
 
-    public Categorie() {
+    public CategorieEntity() {
     }
 
-    public Categorie(String cdCtg) {
+    public CategorieEntity(String cdCtg) {
         this.cdCtg = cdCtg;
     }
 
-    public Categorie(String cdCtg, String lbCtg) {
+    public CategorieEntity(String cdCtg, String lbCtg) {
         this.cdCtg = cdCtg;
         this.lbCtg = lbCtg;
     }
@@ -62,11 +62,11 @@ public class Categorie implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tache> getTacheCollection() {
+    public Collection<TacheEntity> getTacheCollection() {
         return tacheCollection;
     }
 
-    public void setTacheCollection(Collection<Tache> tacheCollection) {
+    public void setTacheCollection(Collection<TacheEntity> tacheCollection) {
         this.tacheCollection = tacheCollection;
     }
 
@@ -80,10 +80,10 @@ public class Categorie implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categorie)) {
+        if (!(object instanceof CategorieEntity)) {
             return false;
         }
-        Categorie other = (Categorie) object;
+        CategorieEntity other = (CategorieEntity) object;
         if ((this.cdCtg == null && other.cdCtg != null) || (this.cdCtg != null && !this.cdCtg.equals(other.cdCtg))) {
             return false;
         }
@@ -92,7 +92,7 @@ public class Categorie implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Categorie[ cdCtg=" + cdCtg + " ]";
+        return "timereportfx.models.CategorieEntity[ cdCtg=" + cdCtg + " ]";
     }
     
 }

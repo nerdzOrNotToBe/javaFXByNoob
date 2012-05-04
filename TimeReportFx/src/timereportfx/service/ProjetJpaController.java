@@ -7,7 +7,7 @@ package timereportfx.service;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.TacheEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +18,7 @@ import timereportfx.TimeReportFx;
 //import javax.transaction.UserTransaction;
 import timereportfx.service.exceptions.NonexistentEntityException;
 import timereportfx.service.exceptions.PreexistingEntityException;
-import timereportfx.models.entities.Projet;
+import timereportfx.models.entities.ProjetEntity;
 
 /**
  *
@@ -41,23 +41,23 @@ public class ProjetJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Projet projet) throws PreexistingEntityException, Exception {
+    public void create(ProjetEntity projet) throws PreexistingEntityException, Exception {
         if (projet.getTacheCollection() == null) {
-            projet.setTacheCollection(new ArrayList<Tache>());
+            projet.setTacheCollection(new ArrayList<TacheEntity>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Tache> attachedTacheCollection = new ArrayList<Tache>();
-            for (Tache tacheCollectionTacheToAttach : projet.getTacheCollection()) {
+            Collection<TacheEntity> attachedTacheCollection = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionTacheToAttach : projet.getTacheCollection()) {
                 tacheCollectionTacheToAttach = em.getReference(tacheCollectionTacheToAttach.getClass(), tacheCollectionTacheToAttach.getIdtache());
                 attachedTacheCollection.add(tacheCollectionTacheToAttach);
             }
             projet.setTacheCollection(attachedTacheCollection);
             em.persist(projet);
-            for (Tache tacheCollectionTache : projet.getTacheCollection()) {
-                Projet oldIdprojetOfTacheCollectionTache = tacheCollectionTache.getIdprojet();
+            for (TacheEntity tacheCollectionTache : projet.getTacheCollection()) {
+                ProjetEntity oldIdprojetOfTacheCollectionTache = tacheCollectionTache.getIdprojet();
                 tacheCollectionTache.setIdprojet(projet);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
                 if (oldIdprojetOfTacheCollectionTache != null) {
@@ -78,31 +78,31 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
-    public void edit(Projet projet) throws NonexistentEntityException, Exception {
+    public void edit(ProjetEntity projet) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Projet persistentProjet = em.find(Projet.class, projet.getIdprojet());
-            Collection<Tache> tacheCollectionOld = persistentProjet.getTacheCollection();
-            Collection<Tache> tacheCollectionNew = projet.getTacheCollection();
-            Collection<Tache> attachedTacheCollectionNew = new ArrayList<Tache>();
-            for (Tache tacheCollectionNewTacheToAttach : tacheCollectionNew) {
+            ProjetEntity persistentProjet = em.find(ProjetEntity.class, projet.getIdprojet());
+            Collection<TacheEntity> tacheCollectionOld = persistentProjet.getTacheCollection();
+            Collection<TacheEntity> tacheCollectionNew = projet.getTacheCollection();
+            Collection<TacheEntity> attachedTacheCollectionNew = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionNewTacheToAttach : tacheCollectionNew) {
                 tacheCollectionNewTacheToAttach = em.getReference(tacheCollectionNewTacheToAttach.getClass(), tacheCollectionNewTacheToAttach.getIdtache());
                 attachedTacheCollectionNew.add(tacheCollectionNewTacheToAttach);
             }
             tacheCollectionNew = attachedTacheCollectionNew;
             projet.setTacheCollection(tacheCollectionNew);
             projet = em.merge(projet);
-            for (Tache tacheCollectionOldTache : tacheCollectionOld) {
+            for (TacheEntity tacheCollectionOldTache : tacheCollectionOld) {
                 if (!tacheCollectionNew.contains(tacheCollectionOldTache)) {
                     tacheCollectionOldTache.setIdprojet(null);
                     tacheCollectionOldTache = em.merge(tacheCollectionOldTache);
                 }
             }
-            for (Tache tacheCollectionNewTache : tacheCollectionNew) {
+            for (TacheEntity tacheCollectionNewTache : tacheCollectionNew) {
                 if (!tacheCollectionOld.contains(tacheCollectionNewTache)) {
-                    Projet oldIdprojetOfTacheCollectionNewTache = tacheCollectionNewTache.getIdprojet();
+                    ProjetEntity oldIdprojetOfTacheCollectionNewTache = tacheCollectionNewTache.getIdprojet();
                     tacheCollectionNewTache.setIdprojet(projet);
                     tacheCollectionNewTache = em.merge(tacheCollectionNewTache);
                     if (oldIdprojetOfTacheCollectionNewTache != null && !oldIdprojetOfTacheCollectionNewTache.equals(projet)) {
@@ -133,15 +133,15 @@ public class ProjetJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Projet projet;
+            ProjetEntity projet;
             try {
-                projet = em.getReference(Projet.class, id);
+                projet = em.getReference(ProjetEntity.class, id);
                 projet.getIdprojet();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The projet with id " + id + " no longer exists.", enfe);
             }
-            Collection<Tache> tacheCollection = projet.getTacheCollection();
-            for (Tache tacheCollectionTache : tacheCollection) {
+            Collection<TacheEntity> tacheCollection = projet.getTacheCollection();
+            for (TacheEntity tacheCollectionTache : tacheCollection) {
                 tacheCollectionTache.setIdprojet(null);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
             }
@@ -154,20 +154,20 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
-    public List<Projet> findProjetEntities() {
+    public List<ProjetEntity> findProjetEntities() {
         return findProjetEntities(true, -1, -1);
     }
 
-    public List<Projet> findProjetEntities(int maxResults, int firstResult) {
+    public List<ProjetEntity> findProjetEntities(int maxResults, int firstResult) {
         return findProjetEntities(false, maxResults, firstResult);
     }
 
-    private List<Projet> findProjetEntities(boolean all, int maxResults, int firstResult) {
+    private List<ProjetEntity> findProjetEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
       //  em.getTransaction().begin();
-        List<Projet> lst;
+        List<ProjetEntity> lst;
         try {
-            Query q = em.createQuery("select object(o) from Projet as o");
+            Query q = em.createQuery("select object(o) from ProjetEntity as o");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -181,10 +181,10 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
-    public Projet findProjet(Integer id) {
+    public ProjetEntity findProjet(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Projet.class, id);
+            return em.find(ProjetEntity.class, id);
         } finally {
             em.close();
         }
@@ -193,7 +193,7 @@ public class ProjetJpaController implements Serializable {
     public int getProjetCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Projet as o");
+            Query q = em.createQuery("select count(o) from ProjetEntity as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();

@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tache")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tache.findAll", query = "SELECT t FROM Tache t"),
-    @NamedQuery(name = "Tache.findByIdtache", query = "SELECT t FROM Tache t WHERE t.idtache = :idtache"),
-    @NamedQuery(name = "Tache.findByNom", query = "SELECT t FROM Tache t WHERE t.nom = :nom")})
-public class Tache implements Serializable {
+    @NamedQuery(name = "Tache.findAll", query = "SELECT t FROM TacheEntity t"),
+    @NamedQuery(name = "Tache.findByIdtache", query = "SELECT t FROM TacheEntity t WHERE t.idtache = :idtache"),
+    @NamedQuery(name = "Tache.findByNom", query = "SELECT t FROM TacheEntity t WHERE t.nom = :nom")})
+public class TacheEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -31,20 +31,20 @@ public class Tache implements Serializable {
     private String nom;
     @JoinColumn(name = "idutilisateur", referencedColumnName = "idutilisateur")
     @ManyToOne
-    private Utilisateur idutilisateur;
+    private UtilisateurEntity idutilisateur;
     @JoinColumn(name = "idprojet", referencedColumnName = "idprojet")
     @ManyToOne
-    private Projet idprojet;
+    private ProjetEntity idprojet;
     @JoinColumn(name = "cd_ctg", referencedColumnName = "cd_ctg")
     @ManyToOne
-    private Categorie cdCtg;
+    private CategorieEntity cdCtg;
     @OneToMany(mappedBy = "idtache")
-    private Collection<Timereport> timereportCollection;
+    private Collection<TimereportEntity> timereportCollection;
 
-    public Tache() {
+    public TacheEntity() {
     }
 
-    public Tache(Integer idtache) {
+    public TacheEntity(Integer idtache) {
         this.idtache = idtache;
     }
 
@@ -64,36 +64,36 @@ public class Tache implements Serializable {
         this.nom = nom;
     }
 
-    public Utilisateur getIdutilisateur() {
+    public UtilisateurEntity getIdutilisateur() {
         return idutilisateur;
     }
 
-    public void setIdutilisateur(Utilisateur idutilisateur) {
+    public void setIdutilisateur(UtilisateurEntity idutilisateur) {
         this.idutilisateur = idutilisateur;
     }
 
-    public Projet getIdprojet() {
+    public ProjetEntity getIdprojet() {
         return idprojet;
     }
 
-    public void setIdprojet(Projet idprojet) {
+    public void setIdprojet(ProjetEntity idprojet) {
         this.idprojet = idprojet;
     }
 
-    public Categorie getCdCtg() {
+    public CategorieEntity getCdCtg() {
         return cdCtg;
     }
 
-    public void setCdCtg(Categorie cdCtg) {
+    public void setCdCtg(CategorieEntity cdCtg) {
         this.cdCtg = cdCtg;
     }
 
     @XmlTransient
-    public Collection<Timereport> getTimereportCollection() {
+    public Collection<TimereportEntity> getTimereportCollection() {
         return timereportCollection;
     }
 
-    public void setTimereportCollection(Collection<Timereport> timereportCollection) {
+    public void setTimereportCollection(Collection<TimereportEntity> timereportCollection) {
         this.timereportCollection = timereportCollection;
     }
 
@@ -107,10 +107,10 @@ public class Tache implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tache)) {
+        if (!(object instanceof TacheEntity)) {
             return false;
         }
-        Tache other = (Tache) object;
+        TacheEntity other = (TacheEntity) object;
         if ((this.idtache == null && other.idtache != null) || (this.idtache != null && !this.idtache.equals(other.idtache))) {
             return false;
         }
@@ -119,7 +119,7 @@ public class Tache implements Serializable {
 
     @Override
     public String toString() {
-        return "timereportfx.models.Tache[ idtache=" + idtache + " ]";
+        return "timereportfx.models.TacheEntity[ idtache=" + idtache + " ]";
     }
     
 }

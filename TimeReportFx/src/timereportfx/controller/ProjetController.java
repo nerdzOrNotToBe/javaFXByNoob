@@ -15,8 +15,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import timereportfx.models.entities.Projet;
-import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.ProjetEntity;
+import timereportfx.models.entities.TacheEntity;
 
 /**
  *
@@ -26,8 +26,8 @@ public class ProjetController implements Initializable {
 
     @FXML
     private VBox vbox;
-    private Projet projet;
-    private List<Tache> taches;
+    private ProjetEntity projet;
+    private List<TacheEntity> taches;
     private ToggleGroup tg;
     private double btnWidth;
     private Main main;
@@ -41,19 +41,19 @@ public class ProjetController implements Initializable {
         this.main = main;
     }
 
-    public Projet getProjet() {
+    public ProjetEntity getProjet() {
         return projet;
     }
 
-    public void setProjet(Projet projet) {
+    public void setProjet(ProjetEntity projet) {
         this.projet = projet;
     }
 
-    public List<Tache> getTaches() {
+    public List<TacheEntity> getTaches() {
         return taches;
     }
 
-    public void setTaches(List<Tache> taches) {
+    public void setTaches(List<TacheEntity> taches) {
         this.taches = taches;
     }
 
@@ -71,16 +71,16 @@ public class ProjetController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        taches = new ArrayList<Tache>();
+        taches = new ArrayList<TacheEntity>();
     }
 
     public void AfficheTache() {
         int i = 0;
-        Collection<Tache> tacheCollection = projet.getTacheCollection();
+        Collection<TacheEntity> tacheCollection = projet.getTacheCollection();
         vbox.setSpacing(1);
         Iterator iteratorTache = tacheCollection.iterator();
         while (iteratorTache.hasNext()) {
-            Tache tache_temp = (Tache) iteratorTache.next();
+            TacheEntity tache_temp = (TacheEntity) iteratorTache.next();
             taches.add(tache_temp);
             ToggleButton btn = new ToggleButton(tache_temp.getNom());
             btn.getStyleClass().add("ToggleButton");

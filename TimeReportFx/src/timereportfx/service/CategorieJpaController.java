@@ -7,7 +7,7 @@ package timereportfx.service;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import timereportfx.models.entities.Tache;
+import timereportfx.models.entities.TacheEntity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.persistence.EntityManagerFactory;
 //import javax.transaction.UserTransaction;
 import timereportfx.service.exceptions.NonexistentEntityException;
 import timereportfx.service.exceptions.PreexistingEntityException;
-import timereportfx.models.entities.Categorie;
+import timereportfx.models.entities.CategorieEntity;
 
 /**
  *
@@ -35,23 +35,23 @@ public class CategorieJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Categorie categorie) throws PreexistingEntityException, Exception {
+    public void create(CategorieEntity categorie) throws PreexistingEntityException, Exception {
         if (categorie.getTacheCollection() == null) {
-            categorie.setTacheCollection(new ArrayList<Tache>());
+            categorie.setTacheCollection(new ArrayList<TacheEntity>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Tache> attachedTacheCollection = new ArrayList<Tache>();
-            for (Tache tacheCollectionTacheToAttach : categorie.getTacheCollection()) {
+            Collection<TacheEntity> attachedTacheCollection = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionTacheToAttach : categorie.getTacheCollection()) {
                 tacheCollectionTacheToAttach = em.getReference(tacheCollectionTacheToAttach.getClass(), tacheCollectionTacheToAttach.getIdtache());
                 attachedTacheCollection.add(tacheCollectionTacheToAttach);
             }
             categorie.setTacheCollection(attachedTacheCollection);
             em.persist(categorie);
-            for (Tache tacheCollectionTache : categorie.getTacheCollection()) {
-                Categorie oldCdCtgOfTacheCollectionTache = tacheCollectionTache.getCdCtg();
+            for (TacheEntity tacheCollectionTache : categorie.getTacheCollection()) {
+                CategorieEntity oldCdCtgOfTacheCollectionTache = tacheCollectionTache.getCdCtg();
                 tacheCollectionTache.setCdCtg(categorie);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
                 if (oldCdCtgOfTacheCollectionTache != null) {
@@ -72,31 +72,31 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
-    public void edit(Categorie categorie) throws NonexistentEntityException, Exception {
+    public void edit(CategorieEntity categorie) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Categorie persistentCategorie = em.find(Categorie.class, categorie.getCdCtg());
-            Collection<Tache> tacheCollectionOld = persistentCategorie.getTacheCollection();
-            Collection<Tache> tacheCollectionNew = categorie.getTacheCollection();
-            Collection<Tache> attachedTacheCollectionNew = new ArrayList<Tache>();
-            for (Tache tacheCollectionNewTacheToAttach : tacheCollectionNew) {
+            CategorieEntity persistentCategorie = em.find(CategorieEntity.class, categorie.getCdCtg());
+            Collection<TacheEntity> tacheCollectionOld = persistentCategorie.getTacheCollection();
+            Collection<TacheEntity> tacheCollectionNew = categorie.getTacheCollection();
+            Collection<TacheEntity> attachedTacheCollectionNew = new ArrayList<TacheEntity>();
+            for (TacheEntity tacheCollectionNewTacheToAttach : tacheCollectionNew) {
                 tacheCollectionNewTacheToAttach = em.getReference(tacheCollectionNewTacheToAttach.getClass(), tacheCollectionNewTacheToAttach.getIdtache());
                 attachedTacheCollectionNew.add(tacheCollectionNewTacheToAttach);
             }
             tacheCollectionNew = attachedTacheCollectionNew;
             categorie.setTacheCollection(tacheCollectionNew);
             categorie = em.merge(categorie);
-            for (Tache tacheCollectionOldTache : tacheCollectionOld) {
+            for (TacheEntity tacheCollectionOldTache : tacheCollectionOld) {
                 if (!tacheCollectionNew.contains(tacheCollectionOldTache)) {
                     tacheCollectionOldTache.setCdCtg(null);
                     tacheCollectionOldTache = em.merge(tacheCollectionOldTache);
                 }
             }
-            for (Tache tacheCollectionNewTache : tacheCollectionNew) {
+            for (TacheEntity tacheCollectionNewTache : tacheCollectionNew) {
                 if (!tacheCollectionOld.contains(tacheCollectionNewTache)) {
-                    Categorie oldCdCtgOfTacheCollectionNewTache = tacheCollectionNewTache.getCdCtg();
+                    CategorieEntity oldCdCtgOfTacheCollectionNewTache = tacheCollectionNewTache.getCdCtg();
                     tacheCollectionNewTache.setCdCtg(categorie);
                     tacheCollectionNewTache = em.merge(tacheCollectionNewTache);
                     if (oldCdCtgOfTacheCollectionNewTache != null && !oldCdCtgOfTacheCollectionNewTache.equals(categorie)) {
@@ -127,15 +127,15 @@ public class CategorieJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Categorie categorie;
+            CategorieEntity categorie;
             try {
-                categorie = em.getReference(Categorie.class, id);
+                categorie = em.getReference(CategorieEntity.class, id);
                 categorie.getCdCtg();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The categorie with id " + id + " no longer exists.", enfe);
             }
-            Collection<Tache> tacheCollection = categorie.getTacheCollection();
-            for (Tache tacheCollectionTache : tacheCollection) {
+            Collection<TacheEntity> tacheCollection = categorie.getTacheCollection();
+            for (TacheEntity tacheCollectionTache : tacheCollection) {
                 tacheCollectionTache.setCdCtg(null);
                 tacheCollectionTache = em.merge(tacheCollectionTache);
             }
@@ -148,18 +148,18 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
-    public List<Categorie> findCategorieEntities() {
+    public List<CategorieEntity> findCategorieEntities() {
         return findCategorieEntities(true, -1, -1);
     }
 
-    public List<Categorie> findCategorieEntities(int maxResults, int firstResult) {
+    public List<CategorieEntity> findCategorieEntities(int maxResults, int firstResult) {
         return findCategorieEntities(false, maxResults, firstResult);
     }
 
-    private List<Categorie> findCategorieEntities(boolean all, int maxResults, int firstResult) {
+    private List<CategorieEntity> findCategorieEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select object(o) from Categorie as o");
+            Query q = em.createQuery("select object(o) from CategorieEntity as o");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -170,10 +170,10 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
-    public Categorie findCategorie(String id) {
+    public CategorieEntity findCategorie(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Categorie.class, id);
+            return em.find(CategorieEntity.class, id);
         } finally {
             em.close();
         }
@@ -182,7 +182,7 @@ public class CategorieJpaController implements Serializable {
     public int getCategorieCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Categorie as o");
+            Query q = em.createQuery("select count(o) from CategorieEntity as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
