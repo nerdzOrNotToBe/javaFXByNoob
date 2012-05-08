@@ -8,6 +8,6 @@ package timereportfx.models;
  *
  * @author Dimitri Lebel
  */
-class Tache {
+public class Tache {
     
 }

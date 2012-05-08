@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.gui.projet;
 
-import timereportfx.service.ProjetJpaController;
+import timereportfx.service.SimpleProjetService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableObjectValue;
@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,12 +25,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import timereportfx.module.colorpicker.ColorPicker;
 import timereportfx.models.entities.ProjetEntity;
+import timereportfx.service.ProjetService;
 
 /**
  *
  * @author Dimitri Lebel
  */
-public class ProjetPaneController implements Initializable {
+public class ProjetPanePrensenter implements Initializable {
 
     @FXML
     private TableView projetTable;
@@ -39,7 +41,7 @@ public class ProjetPaneController implements Initializable {
     private Button btnAdd;
     @FXML
     private AnchorPane projetPane;
-    private ProjetJpaController pjc;
+    private ProjetService projetService;
     private ObservableList<ProjetEntity> projets;
     private ObservableObjectValue<ProjetEntity> projet;
 
@@ -51,8 +53,16 @@ public class ProjetPaneController implements Initializable {
         colorPicker.setLayoutY(56);
         colorPicker.setPrefWidth(150);
         projetPane.getChildren().add(colorPicker);
-      //  projetName.textProperty().bind(projet.getNom());
+        //  projetName.textProperty().bind(projet.getNom());
         findProjet();
+    }
+
+    public ProjetService getProjetService() {
+        return projetService;
+    }
+
+    public void setProjetService(ProjetService projetService) {
+        this.projetService = projetService;
     }
 
     private void configureTable() {
@@ -94,7 +104,6 @@ public class ProjetPaneController implements Initializable {
 
                 @Override
                 public void handle(ActionEvent t) {
-                  
                 }
             });
 
@@ -105,13 +114,17 @@ public class ProjetPaneController implements Initializable {
     }
 
     public void findProjet() {
-        pjc = new ProjetJpaController();
-        projets = FXCollections.observableList(pjc.findProjetEntities());
+        projets = FXCollections.observableList(projetService.findProjetEntities());
         projetTable.setItems(projets);
 
     }
+
     @FXML
-    public void clickAdd(MouseEvent event){
+    public void clickAdd(MouseEvent event) {
         projets.get(0).setNom("toto");
+    }
+    
+    public Parent getView(){
+        return (Parent)projetPane;
     }
 }

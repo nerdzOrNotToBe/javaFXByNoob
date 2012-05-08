@@ -62,20 +62,28 @@ public class TimeReport {
         this.tache = tache;
     }
 
-    public StringProperty getTsDebut() {
+    public StringProperty getTsDebutProperty() {
         return tsDebut;
     }
 
-    public void setTsDebut(StringProperty tsDebut) {
-        this.tsDebut = tsDebut;
+    public void setTsDebut(String tsDebut) {
+        this.tsDebut.set(tsDebut);
     }
 
-    public StringProperty getTsFin() {
+    public String getTsDebut() {
+        return this.tsDebut.get();
+    }
+
+    public StringProperty getTsFinProperty() {
         return tsFin;
     }
 
-    public void setTsFin(StringProperty tsFin) {
-        this.tsFin = tsFin;
+    public void setTsFin(String tsFin) {
+        this.tsFin.set(tsFin);
+    }
+
+    public String getTsFin() {
+        return this.tsFin.get();
     }
 
     public Utilisateur getUtilisateur() {

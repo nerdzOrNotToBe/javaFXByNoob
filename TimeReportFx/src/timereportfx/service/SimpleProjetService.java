@@ -24,23 +24,25 @@ import timereportfx.models.entities.ProjetEntity;
  *
  * @author Dimitri Lebel
  */
-public class ProjetJpaController implements Serializable {
+public class SimpleProjetService implements Serializable, ProjetService {
 
-    public ProjetJpaController( EntityManagerFactory emf) {
+    public SimpleProjetService( EntityManagerFactory emf) {
         //this.utx = utx;
         this.emf = emf;
     }
  //   private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
-    public ProjetJpaController() {
+    public SimpleProjetService() {
        emf = TimeReportFx.getEMF();
     }
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(ProjetEntity projet) throws PreexistingEntityException, Exception {
         if (projet.getTacheCollection() == null) {
             projet.setTacheCollection(new ArrayList<TacheEntity>());
@@ -78,6 +80,7 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(ProjetEntity projet) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -128,6 +131,7 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -154,6 +158,7 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<ProjetEntity> findProjetEntities() {
         return findProjetEntities(true, -1, -1);
     }
@@ -181,6 +186,7 @@ public class ProjetJpaController implements Serializable {
         }
     }
 
+    @Override
     public ProjetEntity findProjet(Integer id) {
         EntityManager em = getEntityManager();
         try {

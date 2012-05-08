@@ -4,9 +4,10 @@
  */
 package timereportfx.controller;
 
+import timereportfx.gui.config.ConfigPanePresenter;
 import timereportfx.service.TacheJpaController;
 import timereportfx.service.TimereportJpaController;
-import timereportfx.service.ProjetJpaController;
+import timereportfx.service.SimpleProjetService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -56,7 +57,7 @@ public class Main implements Initializable {
     private ToggleButton bt;
     private TimeReportFx application;
     private ProjetEntity projet;
-    private ProjetJpaController pjc;
+    private SimpleProjetService pjc;
     private TacheEntity tache;
     private TacheJpaController tjc;
     private UtilisateurEntity user;
@@ -126,7 +127,7 @@ public class Main implements Initializable {
     }
 
     public void findProjetTache() {
-        pjc = new ProjetJpaController();
+        pjc = new SimpleProjetService();
         List<ProjetEntity> projetList = pjc.findProjetEntities();
         tg = new ToggleGroup();
         Iterator iterator = projetList.iterator();
@@ -253,7 +254,7 @@ public class Main implements Initializable {
             } finally {
                 in.close();
             }
-            ConfigPaneController controller = (ConfigPaneController) loader.getController();
+            ConfigPanePresenter controller = (ConfigPanePresenter) loader.getController();
             Scene scene = new Scene(page);
             configStage.setScene(scene);
             configStage.sizeToScene();

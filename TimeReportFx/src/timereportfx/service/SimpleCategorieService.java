@@ -22,19 +22,21 @@ import timereportfx.models.entities.CategorieEntity;
  *
  * @author Dimitri Lebel
  */
-public class CategorieJpaController implements Serializable {
+public class SimpleCategorieService implements Serializable, CategorieService {
 
-    public CategorieJpaController( EntityManagerFactory emf) {
+    public SimpleCategorieService( EntityManagerFactory emf) {
       //  this.utx = utx;
         this.emf = emf;
     }
     //private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(CategorieEntity categorie) throws PreexistingEntityException, Exception {
         if (categorie.getTacheCollection() == null) {
             categorie.setTacheCollection(new ArrayList<TacheEntity>());
@@ -72,6 +74,7 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(CategorieEntity categorie) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -122,6 +125,7 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -148,6 +152,7 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<CategorieEntity> findCategorieEntities() {
         return findCategorieEntities(true, -1, -1);
     }
@@ -170,6 +175,7 @@ public class CategorieJpaController implements Serializable {
         }
     }
 
+    @Override
     public CategorieEntity findCategorie(String id) {
         EntityManager em = getEntityManager();
         try {
