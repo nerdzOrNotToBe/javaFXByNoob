@@ -5,6 +5,7 @@
 package timereportfx.controller;
 
 
+import timereportfx.gui.main.MainPresenter;
 import java.awt.Color;
 import java.net.URL;
 import java.util.*;
@@ -30,14 +31,14 @@ public class ProjetController implements Initializable {
     private List<TacheEntity> taches;
     private ToggleGroup tg;
     private double btnWidth;
-    private Main main;
+    private MainPresenter main;
     private ToggleButton btnPressed;
 
-    public Main getMain() {
+    public MainPresenter getMain() {
         return main;
     }
 
-    public void setMain(Main main) {
+    public void setMain(MainPresenter main) {
         this.main = main;
     }
 

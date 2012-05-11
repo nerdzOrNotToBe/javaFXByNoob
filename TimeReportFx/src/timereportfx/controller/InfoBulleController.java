@@ -4,6 +4,7 @@
  */
 package timereportfx.controller;
 
+import timereportfx.gui.main.MainPresenter;
 import com.sun.javafx.binding.BindingHelperObserver;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,14 +46,14 @@ public class InfoBulleController implements Initializable {
     private IntegerProperty timeSeconds;
     private Timeline timeline;
     private AnimationTimer timer;
-    private Main main;
+    private MainPresenter main;
 
     public void setStage(Stage stage) {
         this.stage = stage;
         startTimerButton();
     }
 
-    public void setMain(Main main) {
+    public void setMain(MainPresenter main) {
         this.main = main;
     }
 

@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import timereportfx.controller.Main;
+import timereportfx.gui.main.MainPresenter;
 import timereportfx.gui.projet.ProjetPanePrensenter;
 import timereportfx.view.BouncingIcon;
 
@@ -32,14 +32,14 @@ public class ConfigPanePresenter implements Initializable {
     private AnchorPane pane;
     private Stage stage;
     private Scene currentScene;
-    private Main main;
+    private MainPresenter main;
     
     private ProjetPanePrensenter projetPanePrensenter;
     
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        taskBar.getChildren().add(new BouncingIcon(getClass().getResource("../view/Projet.png").toString(), "Configuration des projets", new EventHandler<MouseEvent>() {
+        taskBar.getChildren().add(new BouncingIcon(getClass().getResource("../../view/Projet.png").toString(), "Configuration des projets", new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent arg0) {
@@ -91,11 +91,11 @@ public class ConfigPanePresenter implements Initializable {
         this.stage = stage;
     }
 
-    public Main getMain() {
+    public MainPresenter getMain() {
         return main;
     }
 
-    public void setMain(Main main) {
+    public void setMain(MainPresenter main) {
         this.main = main;
     }
 

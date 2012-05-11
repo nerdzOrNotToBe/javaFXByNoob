@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.gui.main;
 
 import timereportfx.gui.config.ConfigPanePresenter;
 import timereportfx.service.TacheJpaController;
@@ -35,17 +35,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import timereportfx.TimeReportFx;
+import timereportfx.controller.InfoBulleController;
+import timereportfx.controller.ProjetController;
 import timereportfx.service.exceptions.PreexistingEntityException;
 import timereportfx.models.entities.ProjetEntity;
 import timereportfx.models.entities.TacheEntity;
 import timereportfx.models.entities.TimereportEntity;
 import timereportfx.models.entities.UtilisateurEntity;
+import timereportfx.service.ProjetService;
 
 /**
  *
  * @author Dimitri Lebel
  */
-public class Main implements Initializable {
+public class MainPresenter implements Initializable {
 
     @FXML
     private Accordion accordion;
@@ -53,13 +56,14 @@ public class Main implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private MenuItem menuConfig;
-    private ToggleGroup tg ;
+    private ToggleGroup tg;
     private ToggleButton bt;
     private TimeReportFx application;
-    private ProjetEntity projet;
-    private SimpleProjetService pjc;
-    private TacheEntity tache;
+    private ProjetService pjc;
+    private TimereportJpaController timejc;
     private TacheJpaController tjc;
+    private TacheEntity tache;
+    private ProjetEntity projet;
     private UtilisateurEntity user;
     private TimereportEntity timereport;
     private Stage stagePoPup;
@@ -102,6 +106,10 @@ public class Main implements Initializable {
         return stage;
     }
 
+    public Parent getView() {
+        return (Parent) anchorPane;
+    }
+
     public int getSecondsTimer() {
         return secondsTimer;
     }
@@ -126,27 +134,38 @@ public class Main implements Initializable {
         this.projet = projet;
     }
 
+    public void setProjetService(ProjetService pjc) {
+        this.pjc = pjc;
+    }
+
+    public void setTimejc(TimereportJpaController timejc) {
+        this.timejc = timejc;
+    }
+
+    public void setTjc(TacheJpaController tjc) {
+        this.tjc = tjc;
+    }
+
     public void findProjetTache() {
-        pjc = new SimpleProjetService();
         List<ProjetEntity> projetList = pjc.findProjetEntities();
         tg = new ToggleGroup();
         Iterator iterator = projetList.iterator();
         while (iterator.hasNext()) {
             ProjetEntity projet1 = (ProjetEntity) iterator.next();
             FXMLLoader loader = new FXMLLoader();
-            InputStream in = Main.class.getResourceAsStream("../view/TitledPanePerso.fxml");
+            InputStream in = MainPresenter.class.getResourceAsStream("../view/TitledPanePerso.fxml");
             loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(Main.class.getResource("../view/TitledPanePerso.fxml"));
+            loader.setLocation(MainPresenter.class.getResource("../view/TitledPanePerso.fxml"));
             TitledPane titledPane = new TitledPane();
             try {
                 titledPane = (TitledPane) loader.load(in);
             } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     in.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             ProjetController projetController = (ProjetController) loader.getController();
@@ -185,13 +204,13 @@ public class Main implements Initializable {
         stage.setIconified(false);
         timereport.setTsFin(new Date());
         timereport.setDuree((new Long(timereport.getTsFin().getTime()).intValue() - new Long(timereport.getTsDebut().getTime()).intValue()) / (60 * 1000));
-        TimereportJpaController timejc = new TimereportJpaController();
+        timejc = new TimereportJpaController();
         try {
             timejc.create(timereport);
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -224,7 +243,7 @@ public class Main implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TimeReportFx.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -241,8 +260,9 @@ public class Main implements Initializable {
             }));
         }
     }
-    public void onClickConfig(ActionEvent action){
-            try {
+
+    public void onClickConfig(ActionEvent action) {
+        try {
             configStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             InputStream in = TimeReportFx.class.getResourceAsStream("view/ConfigPane.fxml");
@@ -264,7 +284,7 @@ public class Main implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TimeReportFx.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

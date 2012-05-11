@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="355.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.Main">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="355.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.gui.main.MainPresenter">
   <children>
     <MenuBar id="menuBar1" fx:id="menuBar" prefHeight="24.0" prefWidth="355.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <menus>
