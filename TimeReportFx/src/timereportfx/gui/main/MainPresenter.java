@@ -7,7 +7,6 @@ package timereportfx.gui.main;
 import timereportfx.gui.config.ConfigPanePresenter;
 import timereportfx.service.TacheJpaController;
 import timereportfx.service.TimereportJpaController;
-import timereportfx.service.SimpleProjetService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,11 +30,13 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import timereportfx.TimeReportFx;
-import timereportfx.controller.InfoBulleController;
+import timereportfx.gui.infoBulle.InfoBullePresenter;
+import timereportfx.gui.loging.LogingPresenter;
 import timereportfx.controller.ProjetController;
 import timereportfx.service.exceptions.PreexistingEntityException;
 import timereportfx.models.entities.ProjetEntity;
@@ -71,6 +72,7 @@ public class MainPresenter implements Initializable {
     private int secondsTimer = 5;
     private Stage stage;
     private Stage configStage;
+    private Stage stageLoggin;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -215,36 +217,20 @@ public class MainPresenter implements Initializable {
     }
 
     private void popPup() {
-        try {
-            stagePoPup = new Stage(StageStyle.UNDECORATED);
 
-            FXMLLoader loader = new FXMLLoader();
-            InputStream in = TimeReportFx.class.getResourceAsStream("view/InfoBulle.fxml");
-            loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(TimeReportFx.class.getResource("view/InfoBulle.fxml"));
-            Parent page;
-            try {
-                page = (Parent) loader.load(in);
-            } finally {
-                in.close();
-            }
-            InfoBulleController controller = (InfoBulleController) loader.getController();
-            Scene scene = new Scene(page, Color.TRANSPARENT);
+            stagePoPup = new Stage(StageStyle.UNDECORATED);
+            InfoBullePresenter infoBullePresenter = application.getTimeReportFxFactory().getInfoBullePresenter();
+            Scene scene = new Scene(infoBullePresenter.getView(), Color.TRANSPARENT);
             stagePoPup.setScene(scene);
             stagePoPup.sizeToScene();
             stagePoPup.initStyle(StageStyle.TRANSPARENT);
             stagePoPup.initOwner(null);
             stagePoPup.setX(javafx.stage.Screen.getPrimary().getBounds().getWidth() / 1.25);
             stagePoPup.setY(javafx.stage.Screen.getPrimary().getBounds().getHeight() / 1.25);
-            controller.setStage(stagePoPup);
-            controller.setMain(this);
-            controller.setLbltacheEnCoursText(tache.getIdprojet().getNom() + " : " + tache.getNom());
+            infoBullePresenter.setStage(stagePoPup);
+            infoBullePresenter.setMain(this);
+            infoBullePresenter.setLbltacheEnCoursText(tache.getIdprojet().getNom() + " : " + tache.getNom());
             stagePoPup.show();
-        } catch (IOException ex) {
-            Logger.getLogger(TimeReportFx.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     class PopPupTask extends TimerTask {
@@ -262,29 +248,30 @@ public class MainPresenter implements Initializable {
     }
 
     public void onClickConfig(ActionEvent action) {
-        try {
             configStage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
-            InputStream in = TimeReportFx.class.getResourceAsStream("view/ConfigPane.fxml");
-            loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(TimeReportFx.class.getResource("view/ConfigPane.fxml"));
-            Parent page;
-            try {
-                page = (Parent) loader.load(in);
-            } finally {
-                in.close();
-            }
-            ConfigPanePresenter controller = (ConfigPanePresenter) loader.getController();
-            Scene scene = new Scene(page);
+            ConfigPanePresenter controller = application.getTimeReportFxFactory().getConfigPanePresenter();
+            Scene scene = new Scene(controller.getView());
             configStage.setScene(scene);
             configStage.sizeToScene();
             controller.setStage(configStage);
             controller.setMain(this);
             configStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(TimeReportFx.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
+        public void loging() {
+            stageLoggin = new Stage();
+            LogingPresenter logingPresenter= application.getTimeReportFxFactory().getLogingPresenter();
+            logingPresenter.setApplication(application);
+            Scene scene = new Scene(logingPresenter.getView());
+            stageLoggin.setScene(scene);
+            stageLoggin.initModality(Modality.APPLICATION_MODAL);
+            stageLoggin.show();
+    }
+
+    public void logged(UtilisateurEntity u) {
+        user = u;
+        stageLoggin.close();
+        findProjetTache();
+        setUser(user);
+    }
+
 }

@@ -23,23 +23,25 @@ import timereportfx.models.entities.UtilisateurEntity;
  *
  * @author Dimitri Lebel
  */
-public class UtilisateurJpaController implements Serializable {
+public class SimpleUtilisateurService implements UtilisateurService {
 
-    public UtilisateurJpaController(EntityManagerFactory emf) {
+    public SimpleUtilisateurService(EntityManagerFactory emf) {
         // this.utx = utx;
         this.emf = emf;
     }
-    public UtilisateurJpaController() {
+    public SimpleUtilisateurService() {
         // this.utx = utx;
         this.emf = timereportfx.TimeReportFx.getEMF();
     }
     //private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
+    @Override
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public void create(UtilisateurEntity utilisateur) throws PreexistingEntityException, Exception {
         if (utilisateur.getTacheCollection() == null) {
             utilisateur.setTacheCollection(new ArrayList<TacheEntity>());
@@ -104,6 +106,7 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(UtilisateurEntity utilisateur) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -194,6 +197,7 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -230,6 +234,7 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
+    @Override
     public List<UtilisateurEntity> findUtilisateurEntities() {
         return findUtilisateurEntities(true, -1, -1);
     }
@@ -252,6 +257,7 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
+    @Override
     public UtilisateurEntity findUtilisateur(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -271,6 +277,7 @@ public class UtilisateurJpaController implements Serializable {
         }
     }
 
+    @Override
     public UtilisateurEntity findUtilisateurByNom(String nom) {
         UtilisateurEntity u = null;
         EntityManager em = getEntityManager();
@@ -287,6 +294,7 @@ public class UtilisateurJpaController implements Serializable {
         }
         return u;
     }
+    @Override
     public boolean isOk(String nom){
         boolean ok =false ;
         if (findUtilisateurByNom(nom) != null)

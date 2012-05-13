@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="113.0" maxWidth="243.0" minHeight="113.0" minWidth="243.0" prefHeight="113.0" prefWidth="243.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.LoggingController">
+<AnchorPane id="anchorPane" fx:id="anchorPane" maxHeight="113.0" maxWidth="243.0" minHeight="113.0" minWidth="243.0" prefHeight="113.0" prefWidth="243.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.gui.loging.LogingPresenter">
   <children>
     <TextField id="textField1" fx:id="txt_userName" prefWidth="200.0" promptText="Nom de l'utilisateur" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="35.0" />
     <Label id="label1" text="Utilisateur" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />

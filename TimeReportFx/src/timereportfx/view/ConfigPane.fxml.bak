@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.ConfigPaneController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.gui.config.ConfigPanePresenter">
   <children>
     <ImageView id="dock1" AnchorPane.bottomAnchor="-9.0" AnchorPane.rightAnchor="140.0">
       <image>
@@ -16,7 +16,7 @@
       </image>
     </ImageView>
     <HBox id="hBox1" fx:id="taskBar" alignment="CENTER" maxHeight="126.0" prefHeight="82.0" prefWidth="600.0" spacing="2.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-    <AnchorPane id="anchorPane1" fx:id="pane" prefHeight="433.0" prefWidth="600.0" />
-    <Line id="line1" endX="502.0" endY="-2.0" layoutX="99.0" layoutY="443.0" startX="-100.0" />
+    <AnchorPane id="anchorPane1" fx:id="pane" prefHeight="433.0" prefWidth="600.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <Line id="line1" endX="502.0" endY="-2.0" startX="-100.0" AnchorPane.bottomAnchor="111.29" AnchorPane.leftAnchor="-2.29" AnchorPane.rightAnchor="-1.71" />
   </children>
 </AnchorPane>

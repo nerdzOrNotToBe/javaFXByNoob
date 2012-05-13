@@ -30,12 +30,12 @@ public class ConfigPanePresenter implements Initializable {
     private HBox taskBar;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private AnchorPane anchorPane;
     private Stage stage;
     private Scene currentScene;
     private MainPresenter main;
-    
     private ProjetPanePrensenter projetPanePrensenter;
-    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -100,7 +100,11 @@ public class ConfigPanePresenter implements Initializable {
     }
 
     public void changeView(Parent pane) {
-   
-            this.pane.getChildren().add(pane);
+
+        this.pane.getChildren().add(pane);
+    }
+
+    public Parent getView() {
+        return (Parent) anchorPane;
     }
 }

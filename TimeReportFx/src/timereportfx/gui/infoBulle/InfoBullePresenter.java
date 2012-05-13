@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.gui.infoBulle;
 
 import timereportfx.gui.main.MainPresenter;
 import com.sun.javafx.binding.BindingHelperObserver;
@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -29,7 +30,7 @@ import javafx.util.Duration;
  *
  * @author Dimitri Lebel
  */
-public class InfoBulleController implements Initializable {
+public class InfoBullePresenter implements Initializable {
 
     @FXML
     private Button btnContinuer;
@@ -66,7 +67,9 @@ public class InfoBulleController implements Initializable {
         timeSeconds = new SimpleIntegerProperty(STARTTIME * 100);
         startTimerButton();
     }
-
+    public Parent getView(){
+        return (Parent)anchorPane;
+    }
     private void startTimerButton() {
         timeSeconds.set((STARTTIME + 1) * 100);
         timeline = new Timeline();

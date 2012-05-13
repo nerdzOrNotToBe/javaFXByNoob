@@ -2,27 +2,29 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package timereportfx.controller;
+package timereportfx.gui.loging;
 
-import timereportfx.service.UtilisateurJpaController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import timereportfx.TimeReportFx;
 import timereportfx.models.entities.UtilisateurEntity;
+import timereportfx.service.UtilisateurService;
 
 /**
  *
  * @author Dimitri Lebel
  */
-public class LoggingController implements Initializable {
+public class LogingPresenter implements Initializable {
 
-    private UtilisateurJpaController UJPA;
+    private UtilisateurService UJPA;
     private TimeReportFx application;
     @FXML
     private TextField txt_userName;
@@ -32,21 +34,27 @@ public class LoggingController implements Initializable {
     private Button btn_cancel;
     @FXML
     private Label lbl_error;
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private void okClick(ActionEvent e) {
-        UJPA = new UtilisateurJpaController();
+        UJPA = application.getTimeReportFxFactory().getUtilisateurService();
         UtilisateurEntity u = UJPA.findUtilisateurByNom(txt_userName.getText());
-        if (u == null ) {
+        if (u == null) {
             lbl_error.setOpacity(1);
         } else {
-            application.logged(u);
+            application.getTimeReportFxFactory().getMainPresenter().logged(u);
         }
 
     }
 
     public void setApplication(TimeReportFx application) {
         this.application = application;
+    }
+
+    public Parent getView() {
+        return (Parent) anchorPane;
     }
 
     @Override

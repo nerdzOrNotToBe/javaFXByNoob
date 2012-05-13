@@ -21,8 +21,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import timereportfx.controller.InfoBulleController;
-import timereportfx.controller.LoggingController;
+import timereportfx.gui.infoBulle.InfoBullePresenter;
+import timereportfx.gui.loging.LogingPresenter;
 import timereportfx.gui.main.MainPresenter;
 import timereportfx.models.entities.UtilisateurEntity;
 
@@ -34,10 +34,13 @@ public class TimeReportFx extends Application {
 
     private static EntityManagerFactory emf;
     private Stage primaryStage;
-    private Stage stageLoggin;
+    
     private UtilisateurEntity user;
-    private LoggingController loggingController;
     private TimeReportFxFactory timeReportFxFactory;
+
+    public TimeReportFxFactory getTimeReportFxFactory() {
+        return timeReportFxFactory;
+    }
 
     public static void main(String[] args) {
         Application.launch(TimeReportFx.class, args);
@@ -49,13 +52,12 @@ public class TimeReportFx extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        emf = Persistence.createEntityManagerFactory("TimeReportFxPU");
-       // emf = Persistence.createEntityManagerFactory("TimeReportFxPU2");
+     //   emf = Persistence.createEntityManagerFactory("TimeReportFxPU");
+        emf = Persistence.createEntityManagerFactory("TimeReportFxPU2");
         timeReportFxFactory = new TimeReportFxFactory();
         
         primaryStage = new Stage();
-        MainPresenter mainPresenter = timeReportFxFactory.getMainPresenter();
-        
+        MainPresenter mainPresenter = timeReportFxFactory.getMainPresenter();       
         mainPresenter.setApplication(this);
         Scene scene = new Scene(mainPresenter.getView());
         primaryStage.setScene(scene);
@@ -64,46 +66,9 @@ public class TimeReportFx extends Application {
         primaryStage.setResizable(false);
         primaryStage.setOpacity(0.95);
         primaryStage.show();
-        logging();
+        mainPresenter.loging();
     }
 
-    public void logging() {
-        try {
-            stageLoggin = new Stage();
-            loggingController = (LoggingController) OpenScene("view/Login.fxml", stageLoggin);
-            loggingController.setApplication(this);
-            stageLoggin.initModality(Modality.APPLICATION_MODAL);
-            stageLoggin.show();
-        } catch (IOException ex) {
-            Logger.getLogger(TimeReportFx.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(MainPresenter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void logged(UtilisateurEntity u) {
-        user = u;
-        stageLoggin.close();
-        timeReportFxFactory.getMainPresenter().findProjetTache();
-        timeReportFxFactory.getMainPresenter().setUser(user);
-    }
-
-    private Initializable OpenScene(String fxml, Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        InputStream in = TimeReportFx.class.getResourceAsStream(fxml);
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
-        loader.setLocation(TimeReportFx.class.getResource(fxml));
-        Parent page;
-        try {
-            page = (Parent) loader.load(in);
-        } finally {
-            in.close();
-        }
-        Scene scene = new Scene(page);
-        stage.setScene(scene);
-        stage.sizeToScene();
-        return (Initializable) loader.getController();
-    }
 
   
 }
