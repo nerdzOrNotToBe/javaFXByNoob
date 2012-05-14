@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" fx:id="projetPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.controller.ProjetPaneController">
+<AnchorPane id="AnchorPane" fx:id="projetPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="timereportfx.gui.projet.ProjetPanePresenter">
   <children>
     <TextField id="textField1" fx:id="projetName" layoutY="26.0" prefHeight="22.0" prefWidth="238.0" text="TextField" AnchorPane.rightAnchor="262.0" />
     <Label id="label1" layoutX="35.0" layoutY="29.0" text="Nom :" />

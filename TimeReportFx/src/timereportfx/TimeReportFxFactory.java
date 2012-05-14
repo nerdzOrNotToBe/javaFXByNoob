@@ -6,11 +6,12 @@ package timereportfx;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import timereportfx.gui.config.ConfigPanePresenter;
 import timereportfx.gui.infoBulle.InfoBullePresenter;
 import timereportfx.gui.loging.LogingPresenter;
 import timereportfx.gui.main.MainPresenter;
-import timereportfx.gui.projet.ProjetPanePrensenter;
+import timereportfx.gui.projet.ProjetPanePresenter;
 import timereportfx.service.*;
 
 /**
@@ -19,7 +20,7 @@ import timereportfx.service.*;
  */
 public class TimeReportFxFactory {
 
-    private ProjetPanePrensenter projetPanePrensenter;
+    private ProjetPanePresenter projetPanePrensenter;
     private MainPresenter mainPresenter;
     private LogingPresenter logingPresenter;
     private InfoBullePresenter infoBullePresenter;
@@ -29,12 +30,14 @@ public class TimeReportFxFactory {
     private TimereportJpaController jpaController;
     private UtilisateurService utilisateurService;
 
-    public ProjetPanePrensenter getProjetPanePrensenter() {
+    public ProjetPanePresenter getProjetPanePrensenter() {
         if (projetPanePrensenter == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.load(getClass().getResourceAsStream("view/ProjetPane.fxml"));
-                projetPanePrensenter = (ProjetPanePrensenter) loader.getController();
+                loader.setBuilderFactory(new JavaFXBuilderFactory());
+                loader.setLocation(getClass().getResource("view/ProjetPane.fxml"));
+                loader.load(getClass().getResourceAsStream("view/ProjetPane.fxml"));              
+                projetPanePrensenter = (ProjetPanePresenter) loader.getController();             
                 projetPanePrensenter.setProjetService(getProjetService());
                 //   projetPanePrensenter.setContactDetailPresenter(getContactDetailPresenter());
                 //   projetPanePrensenter.setContactSearchPresenter(getContactSearchPresenter());
@@ -89,9 +92,11 @@ public class TimeReportFxFactory {
         if (configPanePresenter == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.load(getClass().getResourceAsStream("view/ConfigPane.fxml"));
+                loader.setBuilderFactory(new JavaFXBuilderFactory());
+                loader.setLocation(getClass().getResource("view/ConfigPane.fxml"));
+                loader.load(getClass().getResourceAsStream("view/ConfigPane.fxml"));              
                 configPanePresenter = (ConfigPanePresenter) loader.getController();
-            } catch (IOException e) {
+            } catch (IOException e) {    
                 throw new RuntimeException("Unable to load ConfigPane.fxml", e);
             }
         }

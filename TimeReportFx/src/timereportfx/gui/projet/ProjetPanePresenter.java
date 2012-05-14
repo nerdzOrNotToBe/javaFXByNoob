@@ -31,7 +31,7 @@ import timereportfx.service.ProjetService;
  *
  * @author Dimitri Lebel
  */
-public class ProjetPanePrensenter implements Initializable {
+public class ProjetPanePresenter implements Initializable {
 
     @FXML
     private TableView projetTable;
@@ -42,8 +42,8 @@ public class ProjetPanePrensenter implements Initializable {
     @FXML
     private AnchorPane projetPane;
     private ProjetService projetService;
-    private ObservableList<ProjetEntity> projets;
-    private ObservableObjectValue<ProjetEntity> projet;
+    private ObservableList<Projet> projets;
+    private ObservableObjectValue<Projet> projet;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -114,7 +114,8 @@ public class ProjetPanePrensenter implements Initializable {
     }
 
     public void findProjet() {
-        projets = FXCollections.observableList(projetService.findProjetEntities());
+        
+       // projets = FXCollections.observableList(projetService.findProjetEntities());
         projetTable.setItems(projets);
 
     }

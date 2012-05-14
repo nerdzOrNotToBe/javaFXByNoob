@@ -155,9 +155,9 @@ public class MainPresenter implements Initializable {
         while (iterator.hasNext()) {
             ProjetEntity projet1 = (ProjetEntity) iterator.next();
             FXMLLoader loader = new FXMLLoader();
-            InputStream in = MainPresenter.class.getResourceAsStream("../view/TitledPanePerso.fxml");
+            InputStream in = MainPresenter.class.getResourceAsStream("../../view/TitledPanePerso.fxml");
             loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setLocation(MainPresenter.class.getResource("../view/TitledPanePerso.fxml"));
+            loader.setLocation(MainPresenter.class.getResource("../../view/TitledPanePerso.fxml"));
             TitledPane titledPane = new TitledPane();
             try {
                 titledPane = (TitledPane) loader.load(in);
@@ -218,19 +218,19 @@ public class MainPresenter implements Initializable {
 
     private void popPup() {
 
-            stagePoPup = new Stage(StageStyle.UNDECORATED);
-            InfoBullePresenter infoBullePresenter = application.getTimeReportFxFactory().getInfoBullePresenter();
-            Scene scene = new Scene(infoBullePresenter.getView(), Color.TRANSPARENT);
-            stagePoPup.setScene(scene);
-            stagePoPup.sizeToScene();
-            stagePoPup.initStyle(StageStyle.TRANSPARENT);
-            stagePoPup.initOwner(null);
-            stagePoPup.setX(javafx.stage.Screen.getPrimary().getBounds().getWidth() / 1.25);
-            stagePoPup.setY(javafx.stage.Screen.getPrimary().getBounds().getHeight() / 1.25);
-            infoBullePresenter.setStage(stagePoPup);
-            infoBullePresenter.setMain(this);
-            infoBullePresenter.setLbltacheEnCoursText(tache.getIdprojet().getNom() + " : " + tache.getNom());
-            stagePoPup.show();
+        stagePoPup = new Stage(StageStyle.UNDECORATED);
+        InfoBullePresenter infoBullePresenter = application.getTimeReportFxFactory().getInfoBullePresenter();
+        Scene scene = new Scene(infoBullePresenter.getView(), Color.TRANSPARENT);
+        stagePoPup.setScene(scene);
+        stagePoPup.sizeToScene();
+        stagePoPup.initStyle(StageStyle.TRANSPARENT);
+        stagePoPup.initOwner(null);
+        stagePoPup.setX(javafx.stage.Screen.getPrimary().getBounds().getWidth() / 1.25);
+        stagePoPup.setY(javafx.stage.Screen.getPrimary().getBounds().getHeight() / 1.25);
+        infoBullePresenter.setStage(stagePoPup);
+        infoBullePresenter.setMain(this);
+        infoBullePresenter.setLbltacheEnCoursText(tache.getIdprojet().getNom() + " : " + tache.getNom());
+        stagePoPup.show();
     }
 
     class PopPupTask extends TimerTask {
@@ -248,23 +248,25 @@ public class MainPresenter implements Initializable {
     }
 
     public void onClickConfig(ActionEvent action) {
-            configStage = new Stage();
-            ConfigPanePresenter controller = application.getTimeReportFxFactory().getConfigPanePresenter();
-            Scene scene = new Scene(controller.getView());
-            configStage.setScene(scene);
-            configStage.sizeToScene();
-            controller.setStage(configStage);
-            controller.setMain(this);
-            configStage.show();
+        configStage = new Stage();
+        ConfigPanePresenter controller = application.getTimeReportFxFactory().getConfigPanePresenter();
+        Scene scene = new Scene(controller.getView());
+        controller.setApplication(application);
+        configStage.setScene(scene);
+        configStage.sizeToScene();
+        controller.setStage(configStage);
+        controller.setMain(this);
+        configStage.show();
     }
-        public void loging() {
-            stageLoggin = new Stage();
-            LogingPresenter logingPresenter= application.getTimeReportFxFactory().getLogingPresenter();
-            logingPresenter.setApplication(application);
-            Scene scene = new Scene(logingPresenter.getView());
-            stageLoggin.setScene(scene);
-            stageLoggin.initModality(Modality.APPLICATION_MODAL);
-            stageLoggin.show();
+
+    public void loging() {
+        stageLoggin = new Stage();
+        LogingPresenter logingPresenter = application.getTimeReportFxFactory().getLogingPresenter();
+        logingPresenter.setApplication(application);
+        Scene scene = new Scene(logingPresenter.getView());
+        stageLoggin.setScene(scene);
+        stageLoggin.initModality(Modality.APPLICATION_MODAL);
+        stageLoggin.show();
     }
 
     public void logged(UtilisateurEntity u) {
@@ -273,5 +275,4 @@ public class MainPresenter implements Initializable {
         findProjetTache();
         setUser(user);
     }
-
 }

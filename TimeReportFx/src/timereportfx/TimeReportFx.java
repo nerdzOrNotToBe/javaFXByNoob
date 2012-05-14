@@ -52,8 +52,8 @@ public class TimeReportFx extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-     //   emf = Persistence.createEntityManagerFactory("TimeReportFxPU");
-        emf = Persistence.createEntityManagerFactory("TimeReportFxPU2");
+        emf = Persistence.createEntityManagerFactory("TimeReportFxPU");
+        //emf = Persistence.createEntityManagerFactory("TimeReportFxPU2");
         timeReportFxFactory = new TimeReportFxFactory();
         
         primaryStage = new Stage();

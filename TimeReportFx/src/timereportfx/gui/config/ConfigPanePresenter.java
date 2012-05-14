@@ -16,8 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import timereportfx.TimeReportFx;
 import timereportfx.gui.main.MainPresenter;
-import timereportfx.gui.projet.ProjetPanePrensenter;
+import timereportfx.gui.projet.ProjetPanePresenter;
 import timereportfx.view.BouncingIcon;
 
 /**
@@ -35,7 +36,7 @@ public class ConfigPanePresenter implements Initializable {
     private Stage stage;
     private Scene currentScene;
     private MainPresenter main;
-    private ProjetPanePrensenter projetPanePrensenter;
+    private TimeReportFx application;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -43,7 +44,7 @@ public class ConfigPanePresenter implements Initializable {
 
             @Override
             public void handle(MouseEvent arg0) {
-                changeView(projetPanePrensenter.getView());
+                changeView(application.getTimeReportFxFactory().getProjetPanePrensenter().getView());
             }
         }));
 //        taskBar.getChildren().add(new BouncingIcon(getClass().getResource("../view/tasks.png").toString(), "Configuration des Taches", new EventHandler<MouseEvent>() {
@@ -107,4 +108,13 @@ public class ConfigPanePresenter implements Initializable {
     public Parent getView() {
         return (Parent) anchorPane;
     }
+
+    public TimeReportFx getApplication() {
+        return application;
+    }
+
+    public void setApplication(TimeReportFx application) {
+        this.application = application;
+    }
+    
 }

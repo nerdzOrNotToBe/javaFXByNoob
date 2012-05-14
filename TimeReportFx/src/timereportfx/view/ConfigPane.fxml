@@ -15,7 +15,7 @@
         <Image url="@dock1.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <HBox id="hBox1" fx:id="taskBar" alignment="CENTER" maxHeight="126.0" prefHeight="82.0" prefWidth="600.0" spacing="2.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <HBox id="hBox1" fx:id="taskBar" alignment="CENTER" maxHeight="126.0" prefHeight="82.0" prefWidth="600.0" spacing="2.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.58" AnchorPane.rightAnchor="0.58" />
     <AnchorPane id="anchorPane1" fx:id="pane" prefHeight="433.0" prefWidth="600.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     <Line id="line1" endX="502.0" endY="-2.0" startX="-100.0" AnchorPane.bottomAnchor="111.29" AnchorPane.leftAnchor="-2.29" AnchorPane.rightAnchor="-1.71" />
   </children>
